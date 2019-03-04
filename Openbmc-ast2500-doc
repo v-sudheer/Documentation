@@ -1,0 +1,4 @@
+export  TEMPLATECONF=meta-aspeed/conf
+.   openbmc-env   (  dot space   openbmc-env --> soucing the script)
+touch conf/sanity.conf
+bitbake obmc-phosphor-image

@@ -1,0 +1,47 @@
+openbmc -pilot4:
+---------------------------------------------
+ git clone  https://github.com/openbmc/openbmc.git
+ git tag -l
+ git checkout pilot4
+ git branch
+
+
+openbmc-piolot4-rel5:
+---------------------------------------------
+git clone -b  pilo4-rel5 --single-branch   https://github.com/AspeedTech-BMC/openbmc.git
+git branch 
+
+openbmc-thud branch:
+---------------------------------------------
+git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
+git branch 
+
+
+compiling pilot4 openbmc Image:
+----------------------------------
+export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
+. oe-init-build-env
+bitbake obmc-phosphor-image
+
+pilot4-openbmc Images:
+---------------------------------------------
+ls -l build/tmp/deploy/images/evb-pilot4/
+
+flashing-openbmc Image:
+---------------------------------------
+on host machine:
+ls -l build/tmp/deploy/images/evb-pilot4/*mtd
+cp build/tmp/deploy/images/evb-pilot4/obmc-phosphor-image-evb-pilot4-20190301111340.static.mtd  /tftpboot/pilot4-thud.static.mtd
+
+on target machine:
+tftpboot 0x85000000 pilot4-thud.static.mtd
+pilot_erase_spi 0 0 0 2000000    [ pilot_erase_spi <bus#> <CS#> <Start Address#> <Size> ]
+sf probe 0:0
+sf erase 0 2000000
+sf  write 85000000 0 2000000
+cmp.b 85000000  2000000
+
+
+
+
+

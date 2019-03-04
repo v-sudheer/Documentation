@@ -16,7 +16,6 @@ openbmc-thud branch:
 git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
 git branch 
 
-
 compiling pilot4 openbmc Image:
 ----------------------------------
 export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
@@ -27,7 +26,36 @@ pilot4-openbmc Images:
 ---------------------------------------------
 ls -l build/tmp/deploy/images/evb-pilot4/
 
-flashing-openbmc Image:
+
+openbmc-directories of interest:
+----------------------------------------------
+
+openbmc-main dir:  /home/vsudheer/openbmc-local-rep/openbmc
+pilot4-recipes dir : meta-aspeed/meta-pilot/
+common-recipes dir : meta/
+build-dir          : build/
+                   : build/downloads/ --- downloaded packages
+                   : build/tmp/deploy/images/
+                   : build/tmp/deploy/rpm/
+                   : build/tmp/deploy/license/
+
+
+
+
+
+build/tmp/work/evb_pilot4-openbmc-linux-gnueabi/ ------  Pilot4-Evolution-Board specific
+                   : build/tmp/work/evb_pilot4-openbmc-linux-gnueabi/u-boot-aspeed/
+                   : build/tmp/work/evb_pilot4-openbmc-linux-gnueabi/linux-aspeed/
+                   :
+
+build/tmp/work/armv7a-openbmc-linux-gnueabi/    -----  ARMV7-chip-specific-binaries
+
+build/tmp/work/x86_64-linux/                   -------  binaries on Host machine for Native Machine Architecture.
+
+
+
+
+flashing-openbmc Image on pilot-orion
 ---------------------------------------
 on host machine:
 ls -l build/tmp/deploy/images/evb-pilot4/*mtd

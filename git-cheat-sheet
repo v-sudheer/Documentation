@@ -40,7 +40,9 @@ Examples:
 ----------------
 git clone -b  pilo4-rel5 --single-branch   https://github.com/AspeedTech-BMC/openbmc.git
 
-git clone -b pilot-linux-4.17-rev1  --single-branch https://github.com/AspeedTech-BMC/linux.git     : clone single branch
+git clone -b pilot-linux-4.17-rev1  --single-branch https://github.com/AspeedTech-BMC/linux.git 
+
+git clone -b pilot4 --single-branch  https://github.com/AspeedTech-BMC/u-boot.git
 
 git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
 

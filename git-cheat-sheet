@@ -12,21 +12,17 @@ git checkout  -b   <branchname>        ----------->     Create a new branch and 
 
 git branch -d     <branchname>          ------------->   Delete a branch 
 
+git clone -b pilot-linux-4.17-rev1  --single-branch https://github.com/AspeedTech-BMC/linux.git     : clone single branch
+
 
 
 git status      ------------------>       List the files you've changed and those you still need to add or commit:
 
 
-
-
- git pull origin branchname ---->  git pull origin  pilot-linux-4.17-rev1   ---> will make  local repo upto date  with remote
-Before  giving this  make sure no changes made  to local repo
-
-
-
-
-
-git clone -b pilot-linux-4.17-rev1  --single-branch https://github.com/AspeedTech-BMC/linux.git     : clone single branch
+git pull origin branchname ---->  
+eg:  git pull origin  pilot-linux-4.17-rev1   ---> will make  local repo upto date  with remote
+                                                   Before  giving this  make sure no changes made  to local repo
+                                                   
 
 git reset --soft  HEAD~3
 git log
@@ -34,16 +30,21 @@ git status
 Now follow instructions in git status o/p
 git reset HEAD , git checkout
 
-Git pull
+git pull
 
 
 
+###################################################################################################################################
+
+Examples:
+----------------
+git clone -b  pilo4-rel5 --single-branch   https://github.com/AspeedTech-BMC/openbmc.git
 
 git clone -b pilot-linux-4.17-rev1  --single-branch https://github.com/AspeedTech-BMC/linux.git     : clone single branch
 
 git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
-git branch 
 
-git clone -b  pilo4-rel5 --single-branch   https://github.com/AspeedTech-BMC/openbmc.git
+
+
 
 

@@ -8,6 +8,7 @@ git branch ----> display currently pulled branches
 
 git checkout <branchname>   ---- >  switch to an existing branch
 
+git branch  <new-branchname>  -----> create a new branch 
 git checkout  -b   <branchname>        ----------->     Create a new branch and switch to it
 
 git branch -d     <branchname>          ------------->   Delete a branch 
@@ -32,6 +33,12 @@ git reset HEAD , git checkout
 
 git pull
 
+Adding a Remote:
+git remote add  <remote-name> <remote-url> 
+git remote add  openbmc  https://github.com/openbmc/openbmc.git
+
+verifying remote:
+git remote -v 
 
 
 ###################################################################################################################################

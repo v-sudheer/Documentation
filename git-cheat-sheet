@@ -61,4 +61,28 @@ git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
 
 
 
+Reverting a most recent commit:
+--------------------------------
+git pull origin thud
+git log
+git reset --hard e3f1e37  (if e3f1e37 is most recent commit hash )
+git push --force origin thud
+
+changing name of a branch in remote :
+------------------------------
+git push -u origin uboot-openbmc-thud:thud  ( creates a new branch thud which is copy of  old branch is uboot-openbmc-thud)
+git  push origin --delete uboot-openbmc-thud ( remove old branch uboot-openbmc-thud)
+
+
+
+
+
+
+
+
+
+
+
+
+
 

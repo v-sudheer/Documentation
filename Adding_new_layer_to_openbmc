@@ -3,3 +3,31 @@ Finding Organised approach to add a layer
 https://a4z.bitbucket.io/docs/BitBake/guide.html#_setup_bitbake
 https://www.yoctoproject.org/docs/2.5.2/bsp-guide/bsp-guide.html   --- BSP develoipers YOCTOguide 
 
+
+
+
+
+
+
+
+
+Adding Layer for AST2600
+-------------------------------
+
+        new file:   meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/bblayers.conf.sample
+        new file:   meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/conf-notes.txt
+        new file:   meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/layer.conf
+        new file:   meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/local.conf.sample
+        new file:   meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/machine/evb-ast2600.conf
+
+        new file:   meta-aspeed/conf/machine/include/ast2600.inc
+        new file:   meta-aspeed/conf/machine/include/tune-arm7a-novfp.inc
+        modified:   meta-aspeed/recipes-kernel/linux/linux-aspeed.inc        
+
+
+
+https://github.com/AspeedTech-BMC/linux-4.9/tree/develop/arch/arm/configs/ast2600_smp_defconfig   ---Linux defconfig
+https://github.com/AspeedTech-BMC/u-boot-2017.01/tree/develop/configs/ast2500_spl_defconfig        --- uboot defconfig 
+
+
+

@@ -27,7 +27,7 @@ Adding Layer for AST2600
 
 
 https://github.com/AspeedTech-BMC/linux-4.9/tree/develop/arch/arm/configs/ast2600_smp_defconfig   ---Linux defconfig
-https://github.com/AspeedTech-BMC/u-boot-2017.01/tree/develop/configs/ast2500_spl_defconfig        --- uboot defconfig 
+https://github.com/AspeedTech-BMC/u-boot-2017.01/tree/develop/configs/ast2600_spl_defconfig        --- uboot defconfig 
 
 
 cd /home/vsudheer/Organised/Aspeed_openbmc_thud/openbmc/meta-aspeed/recipes-kernel/linux/ast2600

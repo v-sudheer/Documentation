@@ -22,6 +22,18 @@ export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
 . oe-init-build-env
 bitbake obmc-phosphor-image
 
+clean and make openbmc Image
+--------------------------------
+bitbake -c cleanall virtual/bootloader;bitbake -c cleanall virtual/kernel;bitbake -c cleanall obmc-phosphor-image;
+bitbake obmc-phosphor-image
+
+(or)
+rename build folder; 
+export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
+. oe-init-build-env
+bitbake obmc-phosphor-image
+now remove old build folder
+
 pilot4-openbmc Images:
 ---------------------------------------------
 ls -l build/tmp/deploy/images/evb-pilot4/

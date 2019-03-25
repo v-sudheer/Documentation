@@ -10,10 +10,10 @@ git checkout <branchname>   ---- >  switch to an existing branch
 
 git branch  <new-branchname>  -----> create a new branch 
 
-git branch -b <new-branchname>      ----------->     Create a new branch and switch to it .
+git checkout -b <new-branchname>      ----------->     Create a new branch and switch to it .
                                                             new branch is based off-from current HEAD
 
-git branch -b  <new-branchname>  <existing-branchname> ---->  Create a new branch and switch to it .
+git checkout -b  <new-branchname>  <existing-branchname> ---->  Create a new branch and switch to it .
                                new branch is based off-from  specified existing-branch instedof from  branch pinted by current HEAD
 
 git branch -d     <branchname>          ------------->   Delete a branch 

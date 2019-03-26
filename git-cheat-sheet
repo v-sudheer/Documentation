@@ -73,7 +73,10 @@ changing name of a branch in remote :
 git push -u origin uboot-openbmc-thud:thud  ( creates a new branch thud which is copy of  old branch is uboot-openbmc-thud)
 git  push origin --delete uboot-openbmc-thud ( remove old branch uboot-openbmc-thud)
 
-
+changing commit message for just remote pushed commit
+-----------------------------------------------
+git commit --amend -m "New commit message"
+git push --force
 
 
 

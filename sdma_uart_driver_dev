@@ -5,7 +5,7 @@
 
 
 
-
+arch/arm/boot/dts/ast2500_evb.dts
 
 / {
         model = "AST2500 EVB";
@@ -47,3 +47,107 @@
         status = "okay";
 };
 
+
+
+
+                uart0: serial@1e784000 {
+                        compatible = "ns16550a";
+                        reg = <0x1e784000 0x1000>;
+                        reg-shift = <2>;
+                        interrupts = <10>;
+                        clocks = <&syscon ASPEED_CLK_GATE_UART5CLK>;
+                        no-loopback-test;
+                };
+
+
+
+                uart1: serial@1e783000 {
+                        compatible = "ns16550a";
+                        reg = <0x1e783000 0x1000>;
+                        reg-shift = <2>;
+                        interrupts = <9>;
+                        clocks = <&syscon ASPEED_CLK_GATE_UART1CLK>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd1_default &pinctrl_rxd1_default>;
+                        status = "disabled";
+                };
+
+                uart2: serial@1e78d000 {
+                        compatible = "ns16550a";
+                        reg = <0x1e78d000 0x1000>;
+                        reg-shift = <2>;
+                        interrupts = <32>;
+                        clocks = <&syscon ASPEED_CLK_GATE_UART2CLK>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
+                        status = "disabled";
+                };
+
+                uart3: serial@1e78e000 {
+                        compatible = "ns16550a";
+                        reg = <0x1e78e000 0x1000>;
+                        reg-shift = <2>;
+                        interrupts = <33>;
+                        clocks = <&syscon ASPEED_CLK_GATE_UART3CLK>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd3_default &pinctrl_rxd3_default>;
+                };
+
+                uart4: serial@1e78f000 {
+                        compatible = "ns16550a";
+                        reg = <0x1e78f000 0x1000>;
+                        reg-shift = <2>;
+                        interrupts = <34>;
+                        clocks = <&syscon ASPEED_CLK_GATE_UART4CLK>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd4_default &pinctrl_rxd4_default>;
+                };
+
+
+                vuart: serial@1e787000 {
+                        compatible = "aspeed,ast2500-vuart";
+                        reg = <0x1e787000 0x40>;
+                        reg-shift = <2>;
+                        interrupts = <8>;
+                        clocks = <&syscon ASPEED_CLK_APB>;
+                        no-loopback-test;
+                        port_address = <0x3f8>;
+                        serial_irq = <4>;
+                };
+
+                ast_uart_sdma: uart_sdma@1e79e000 {
+                        compatible = "aspeed,ast-uart-sdma";
+                        reg = <0x1e79e000 0x400>;
+                        interrupts = <50>;
+                        status = "disabled";
+                };
+
+                dma_uart0: dma_uart0@1e78e000{
+                        compatible = "aspeed,ast-sdma-uart";
+                        reg = <0x1e78e000 0x1000>;
+                        interrupts = <33>;
+                        clocks = <24000000>;
+                        reg-shift = <2>;
+                        dma-channel = <2>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd1_default &pinctrl_rxd1_default>;
+                        status = "disabled";
+                };
+
+                dma_uart1: dma_uart1@1e78f000{
+                        compatible = "aspeed,ast-sdma-uart";
+                        reg = <0x1e78f000 0x1000>;
+                        interrupts = <34>;
+                        clocks = <24000000>;
+                        reg-shift = <2>;
+                        dma-channel = <3>;
+                        no-loopback-test;
+                        pinctrl-names = "default";
+                        pinctrl-0 = <&pinctrl_txd1_default &pinctrl_rxd1_default>;
+                        status = "disabled";
+                };

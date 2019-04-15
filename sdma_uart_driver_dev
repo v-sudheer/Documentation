@@ -251,7 +251,17 @@ kernel/linux-4.9/arch/arm/boot/dts/ast2500_evb.dts
 
 
 
- 
+Testing the driver:
+-------------------
+
+on the target :
+stty -F /dev/ttyDMA0 -onlcr -echo
+
+On the host Machine:
+stty -F /dev/ttyUSB1 -onlcr -echo
+
+now transfer files b/w host and target.
+
  
  
                 

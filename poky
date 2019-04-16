@@ -1,2 +1,16 @@
 poky is YOCTOs reference distro .
 poky = packaged {bitbake + OE-core meta-data}
+
+https://git.yoctoproject.org/  --- Here you find poky to download
+navigate to poky from here.
+https://git.yoctoproject.org/cgit/cgit.cgi/poky/ ---- for poky
+summary has tags and downloads
+
+git clone git://git.yoctoproject.org/poky ----> clones master
+
+most recent tag @ when this doc is written is 2.7_M3
+git clone --branch 2.7_M3 --single-branch git://git.yoctoproject.org/poky  
+
+build Linux Image:
+source oe-init-build-env
+MACHINE=qemux86 bitbake core-image-minimal

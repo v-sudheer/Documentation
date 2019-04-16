@@ -1,0 +1,2 @@
+poky is YOCTOs reference distro .
+poky = packaged {bitbake + OE-core meta-data}

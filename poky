@@ -237,5 +237,103 @@ drwxrwxr-x 4 vsudheer vsudheer  4096  四  16 17:36 work-shared
 vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$
 
 
+Understanding Recipes:
+---------------------------
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/recipes-multimedia$ vim  gstreamer/gstreamer1.0-python_1.14.4.bb
+
+SUMMARY = "Python bindings for GStreamer 1.0"
+HOMEPAGE = "http://cgit.freedesktop.org/gstreamer/gst-python/"
+SECTION = "multimedia"
+
+LICENSE = "LGPLv2.1"
+LIC_FILES_CHKSUM = "file://COPYING;md5=c34deae4e395ca07e725ab0076a5f740"
+
+SRC_URI = "http://gstreamer.freedesktop.org/src/${PNREAL}/${PNREAL}-${PV}.tar.xz"
+   ============> ${PV} is  1.14.4  
+                PV is package version : makes easy to upgrade the recipe when new version of gstreamer is  released 
+                
+ inherit autotools pkgconfig distutils3-base upstream-version-is-even gobject-introspection distro_features_check
+ inherit autotools -------> tells bitbake to use autotools.bb class logic to build s/w
+ 
+  by making use of these class files ...we can  simplify our recipe file ( by reusing the class logic written already)
+  
+  Design goal of poky-build system:
+  build logic is put in the class file  and  recipe is simplified with just build-info 
+  class logic is reused in many recipes.
+  
+  
+  
+  tasks / recipe build steps :
+  standard tasks : do_fetch, do_unpack, do_patch, do_configure, do_compile , do_install, do_package
+  when we inherit a class in recipe , these build steps are inherited and  software is built using the desired build system  .
+  In addition ,we can override these build steps by  defining them in recipes.
+  This is needed because all S/W does not follow same build process . some times we need to override the build steps.
+  
+  examples of overriding class's build steps in recipes :
+
+ex1:
+-----------
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/recipes-extended$   vim minicom/minicom_2.7.1.bb
+  inherit autotools gettext pkgconfig
+  do_install() {
+        for d in doc extras man lib src; do make -C $d DESTDIR=${D} install; done
+}
+this means autotools.do_install() is overridden by do_install of this recipe
+
+ex2:
+------------
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/recipes-core$ vim readline/readline.inc
+
+inherit autotools texinfo
+
+EXTRA_AUTORECONF += "--exclude=autoheader"
+
+LEAD_SONAME = "libreadline.so"
+
+do_configure_prepend () {
+        if [ ! -e ${S}/acinclude.m4 ]; then
+                cat ${S}/aclocal.m4 > ${S}/acinclude.m4
+        fi
+}
+
+do_install_append () {
+        # Make install doesn't properly install these
+        oe_libinstall -so -C shlib libhistory ${D}${libdir}
+        oe_libinstall -so -C shlib libreadline ${D}${libdir}
+
+
+  do_configure_prepend is hook function : which is run before autotools.do_configure() instead of overriding it.
+  do_install_append    is  hook function : which is run  after  autotools.do_install()
+ 
+ ex3:
+ -------
+ vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/recipes-core$ vim psplash/psplash_git.bb
+
+psplash_git.bb ------> the word git instead of package version ${PV}=> recipe pulls latest version from git repo , every time psplash is built
+
+SRCREV = "2015f7073e98dd9562db0936a254af5ef56356cf" ---> specify particular commit to build from
+S = "${WORKDIR}/git" ---->  source location within the work dir
+FILES_${PN} += "/mnt/.psplash" ---->  FILES_${PN} allows to control which files go to which packages .
+                                        (PN = package name) is name of the recipe without version number( Here it is psplash)
+                                       Here we are adding /mnt/.psplash file to package named psplash
+
+inherit autotools pkgconfig update-rc.d update-alternatives
+autotools  ---->  build system for linux
+pkgconfig ----->   interface for locating shared libraries used by the build system of psplash.
+update-rc.d ----->  S/W is an init deamon . we need to Enable some logic to support that.
+do_install_append()  --->  prepend hook for do_install step
+
+when  update-rc.d class is inherited , we need to set varibales  that control init script.
+INITSCRIPT_NAME = "psplash.sh"  ---> to specify name of init script file 
+INITSCRIPT_PARAMS = "start 0 S . stop 20 0 1 6 ." ----> to set run levels 
+
+
+                                       
+                                       
+                                       
+
+
 
 

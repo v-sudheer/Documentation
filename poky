@@ -14,3 +14,228 @@ git clone --branch 2.7_M3 --single-branch git://git.yoctoproject.org/poky
 build Linux Image:
 source oe-init-build-env
 MACHINE=qemux86 bitbake core-image-minimal
+
+
+
+--------------------------------------------------------------------------------------------
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$ source oe-init-build-env
+You had no conf/local.conf file. This configuration file has therefore been
+created for you with some default values. You may wish to edit it to, for
+example, select a different MACHINE (target hardware). See conf/local.conf
+for more information as common configuration options are commented.
+
+You had no conf/bblayers.conf file. This configuration file has therefore been
+created for you with some default values. To add additional metadata layers
+into your configuration please add entries to conf/bblayers.conf.
+
+The Yocto Project has extensive documentation about OE including a reference
+manual which can be found at:
+    http://yoctoproject.org/documentation
+
+For more information about OpenEmbedded see their website:
+    http://www.openembedded.org/
+
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-sato
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$ ls conf/
+bblayers.conf     local.conf        templateconf.cfg
+
+check this local.conf file --- > you find lot of info 
+cat conf/local.conf
+
+DISTRO ?= "poky"
+PACKAGE_CLASSES ?= "package_rpm"
+# This sets the default machine to be qemux86 if no other machine is selected:
+MACHINE ??= "qemux86"
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build/conf$ cat bblayers.conf
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /home/vsudheer/bitbake-practice/poky-practice/poky/meta \
+  /home/vsudheer/bitbake-practice/poky-practice/poky/meta-poky \
+  /home/vsudheer/bitbake-practice/poky-practice/poky/meta-yocto-bsp \
+
+
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$ bitbake core-image-minimal
+( omitting MACHINE , since MACHINE is quemux86 by default.) 
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$ ls
+bitbake-cookerdaemon.log  bitbake.lock  bitbake.sock  cache  conf  downloads  sstate-cache  tmp
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$
+
+
+-------------------------------------------------------------------------------------------------
+
+Exploring src tree of poky:
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$ ls -l
+total 56
+drwxrwxr-x  6 vsudheer vsudheer 4096  四  16 16:43 bitbake
+drwxrwxr-x  7 vsudheer vsudheer 4096  四  16 17:21 build   ----------->  build directory 
+drwxrwxr-x 15 vsudheer vsudheer 4096  四  16 16:43 documentation
+-rw-rw-r--  1 vsudheer vsudheer  515  四  16 16:43 LICENSE
+drwxrwxr-x 19 vsudheer vsudheer 4096  四  16 16:44 meta
+drwxrwxr-x  5 vsudheer vsudheer 4096  四  16 16:43 meta-poky
+drwxrwxr-x  9 vsudheer vsudheer 4096  四  16 16:43 meta-selftest
+drwxrwxr-x  7 vsudheer vsudheer 4096  四  16 16:43 meta-skeleton
+drwxrwxr-x  8 vsudheer vsudheer 4096  四  16 16:43 meta-yocto-bsp
+-rwxrwxr-x  1 vsudheer vsudheer 1947  四  16 16:44 oe-init-build-env
+lrwxrwxrwx  1 vsudheer vsudheer   30  四  16 16:43 README.hardware -> meta-yocto-bsp/README.hardware
+-rw-rw-r--  1 vsudheer vsudheer 1226  四  16 16:43 README.LSB
+-rw-rw-r--  1 vsudheer vsudheer  809  四  16 16:43 README.OE-Core
+lrwxrwxrwx  1 vsudheer vsudheer   21  四  16 16:43 README.poky -> meta-poky/README.poky
+-rw-rw-r--  1 vsudheer vsudheer  529  四  16 16:43 README.qemu
+drwxrwxr-x  8 vsudheer vsudheer 4096  四  16 16:44 scripts    ------> support scripts used by build system
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$
+
+meta data files of build system organised in Layers ========> 
+drwxrwxr-x 19 vsudheer vsudheer 4096  四  16 16:44 meta
+drwxrwxr-x  5 vsudheer vsudheer 4096  四  16 16:43 meta-poky
+drwxrwxr-x  9 vsudheer vsudheer 4096  四  16 16:43 meta-selftest
+drwxrwxr-x  7 vsudheer vsudheer 4096  四  16 16:43 meta-skeleton
+drwxrwxr-x  8 vsudheer vsudheer 4096  四  16 16:43 meta-yocto-bsp
+
+
+
+
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta$ ls -l
+total 104
+drwxrwxr-x  2 vsudheer vsudheer 12288  四  16 16:43 classes         ------------>  bitbake classes
+drwxrwxr-x  6 vsudheer vsudheer  4096  四  16 16:43 conf             ------------>  configuration files 
+-rw-rw-r--  1 vsudheer vsudheer 17987  四  16 16:43 COPYING.GPLv2
+-rw-rw-r--  5 vsudheer vsudheer  1035  四  16 16:43 COPYING.MIT
+drwxrwxr-x  4 vsudheer vsudheer  4096  四  16 16:43 files
+drwxrwxr-x  6 vsudheer vsudheer  4096  四  16 17:21 lib
+drwxrwxr-x 18 vsudheer vsudheer  4096  四  16 16:43 recipes-bsp     --------------> recipes directory for bsp
+drwxrwxr-x 24 vsudheer vsudheer  4096  四  16 16:43 recipes-connectivity
+drwxrwxr-x 43 vsudheer vsudheer  4096  四  16 16:44 recipes-core
+drwxrwxr-x 94 vsudheer vsudheer  4096  四  16 16:44 recipes-devtools
+drwxrwxr-x 90 vsudheer vsudheer  4096  四  16 16:44 recipes-extended
+drwxrwxr-x 17 vsudheer vsudheer  4096  四  16 16:44 recipes-gnome
+drwxrwxr-x 49 vsudheer vsudheer  4096  四  16 16:44 recipes-graphics
+drwxrwxr-x 18 vsudheer vsudheer  4096  四  16 16:44 recipes-kernel
+drwxrwxr-x 24 vsudheer vsudheer  4096  四  16 16:44 recipes-multimedia
+drwxrwxr-x  4 vsudheer vsudheer  4096  四  16 16:44 recipes-rt
+drwxrwxr-x 20 vsudheer vsudheer  4096  四  16 16:44 recipes-sato
+drwxrwxr-x 79 vsudheer vsudheer  4096  四  16 16:44 recipes-support
+-rw-rw-r--  1 vsudheer vsudheer  1333  四  16 16:44 recipes.txt
+drwxrwxr-x  2 vsudheer vsudheer  4096  四  16 16:44 site
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta$ ls -l recipes-bsp/
+total 64
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 acpid
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 alsa-state
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 apmd
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 formfactor
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 gnu-efi
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 grub
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 keymaps
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 libacpi
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 lrzsz
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 pciutils
+drwxrwxr-x 2 vsudheer vsudheer 4096  四  16 16:43 pm-utils
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 setserial
+drwxrwxr-x 2 vsudheer vsudheer 4096  四  16 16:43 u-boot
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 usbinit
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 usbutils
+drwxrwxr-x 3 vsudheer vsudheer 4096  四  16 16:43 v86d
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta$ ls -l recipes-bsp/grub/
+total 20
+drwxrwxr-x 2 vsudheer vsudheer 4096  四  16 16:43 files
+-rw-rw-r-- 1 vsudheer vsudheer  730  四  16 16:43 grub_2.02.bb    ---> recipe for grub
+-rw-rw-r-- 1 vsudheer vsudheer 2971  四  16 16:43 grub2.inc
+-rw-rw-r-- 1 vsudheer vsudheer  618  四  16 16:43 grub-bootconf_1.00.bb  -----> recipe for configuring grub
+-rw-rw-r-- 1 vsudheer vsudheer 3289  四  16 16:43 grub-efi_2.02.bb
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta$
+
+
+
+
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/conf$ ls -l
+total 148
+-rw-rw-r-- 1 vsudheer vsudheer   306  四  16 16:43 abi_version.conf
+-rw-rw-r-- 1 vsudheer vsudheer 35799  四  16 16:43 bitbake.conf       ----------> top level config file for meta-layer
+-rw-rw-r-- 1 vsudheer vsudheer    34  四  16 16:43 ccache.conf
+-rw-rw-r-- 1 vsudheer vsudheer   264  四  16 16:43 conf-notes.txt
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 16:43 distro
+-rw-rw-r-- 1 vsudheer vsudheer 52454  四  16 16:43 documentation.conf
+-rw-rw-r-- 1 vsudheer vsudheer  3027  四  16 16:43 layer.conf
+-rw-rw-r-- 1 vsudheer vsudheer  7836  四  16 16:43 licenses.conf
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 16:43 machine            --------> machine specific configuration files
+drwxrwxr-x 2 vsudheer vsudheer  4096  四  16 16:43 machine-sdk
+-rw-rw-r-- 1 vsudheer vsudheer    32  四  16 16:43 migrate_localcount.conf
+drwxrwxr-x 2 vsudheer vsudheer  4096  四  16 16:43 multiconfig
+-rw-rw-r-- 1 vsudheer vsudheer  1376  四  16 16:43 multilib.conf
+-rw-rw-r-- 1 vsudheer vsudheer    22  四  16 16:43 prexport.conf
+-rw-rw-r-- 1 vsudheer vsudheer    22  四  16 16:43 primport.conf
+-rw-rw-r-- 1 vsudheer vsudheer   336  四  16 16:43 sanity.conf
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/meta/conf$
+
+
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$ ls -l
+
+drwxrwxr-x   2 vsudheer vsudheer  4096  四  16 17:27 cache
+drwxrwxr-x   2 vsudheer vsudheer  4096  四  16 17:28 conf         ------------>  
+drwxrwxr-x   4 vsudheer vsudheer 20480  四  16 17:36 downloads      ------------>  upsteam sources downloaded
+drwxrwxr-x 256 vsudheer vsudheer  4096  四  16 17:46 sstate-cache   ------------>  compiled output that can be reused in successive builds
+drwxrwxr-x  15 vsudheer vsudheer  4096  四  16 17:33 tmp            ------------>  build is done and o/ps available
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$
+
+
+
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build$ ls -l conf/
+total 24
+-rw-rw-r-- 1 vsudheer vsudheer   385  四  16 17:15 bblayers.conf   ----------->  specifies what meta-layers we make use of for build
+-rw-rw-r-- 1 vsudheer vsudheer 11072  四  16 17:15 local.conf     ----------->  sets up build config
+-rw-rw-r-- 1 vsudheer vsudheer   195  四  16 17:21 sanity_info  
+-rw-rw-r-- 1 vsudheer vsudheer    15  四  16 17:15 templateconf.cfg
+
+
+ vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$ ls -l build/tmp/
+total 112
+-rw-rw-r-- 1 vsudheer vsudheer     2  四  16 17:21 abi_version
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 17:22 buildstats
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 17:21 cache
+drwxrwxr-x 5 vsudheer vsudheer  4096  四  16 17:42 deploy
+drwxrwxr-x 2 vsudheer vsudheer  4096  四  16 17:21 hosttools
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 17:21 log
+drwxrwxr-x 3 vsudheer vsudheer  4096  四  16 17:33 pkgdata
+-rw-rw-r-- 1 vsudheer vsudheer    60  四  16 17:21 saved_tmpdir
+drwxrwxr-x 2 vsudheer vsudheer 53248  四  16 17:52 sstate-control
+drwxrwxr-x 7 vsudheer vsudheer  4096  四  16 17:22 stamps
+drwxr-xr-x 2 vsudheer vsudheer  4096  四  16 17:51 sysroots
+drwxrwxr-x 7 vsudheer vsudheer  4096  四  16 17:32 sysroots-components
+drwxr-xr-x 3 vsudheer vsudheer  4096  三  19 23:28 sysroots-uninative
+drwxrwxr-x 6 vsudheer vsudheer  4096  四  16 17:22 work
+drwxrwxr-x 4 vsudheer vsudheer  4096  四  16 17:36 work-shared
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky$
+
+
+
+

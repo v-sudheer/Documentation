@@ -2,3 +2,10 @@ export  TEMPLATECONF=meta-aspeed/conf
 .   openbmc-env   (  dot space   openbmc-env --> soucing the script)
 touch conf/sanity.conf
 bitbake obmc-phosphor-image
+
+
+
+
+tftp 80000000 ast2500_evb.mtd
+bootm 80080000
+

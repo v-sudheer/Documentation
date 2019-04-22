@@ -335,5 +335,14 @@ INITSCRIPT_PARAMS = "start 0 S . stop 20 0 1 6 ." ----> to set run levels
                                        
 
 
+###############################################################################################
+compiling poky for BBB
+vsudheer@aspeed-fw:~/bitbake-practice/poky-practice/poky/build-bbb$ bitbake core-image-sato
+
+
+
+
+
+
 
 

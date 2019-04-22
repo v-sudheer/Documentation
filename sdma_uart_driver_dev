@@ -262,7 +262,12 @@ stty -F /dev/ttyUSB1 -onlcr -echo
 
 now transfer files b/w host and target.
 
- 
- 
-                
+
+on host machine:
+hexdump -C [text_file] >  hex_file
+dd if=[hex_file] of=[hex_file_required_size] bs=[req_size] count=1 status=progress
+cat  hex_100K   >  /dev/ttyUSB1
+
+on target:
+cat /dev/ttyDMA0 > recv_file                 
                 

@@ -5,7 +5,21 @@ bitbake obmc-phosphor-image
 
 
 
-
+setenv ethaddr 00:16:88:01:01:34
+dhcp
+setenv serverip 192.168.30.57
 tftp 80000000 ast2500_evb.mtd
 bootm 80080000
 
+
+sf probe 0:0
+sf erase 0 2000000
+sf write 85000000 0 2000000
+cmp.b 85000000 0 2000000
+
+
+tftp 85000000 ast2500_evb.mtd   
+pilot_erase_spi 0 0 0 2000000      ( pilot_erase_spi <BUS#> <CS#> <Start Addr> <Size>)
+sf probe 0:0
+sf write 85000000 0 2000000
+cmp.b 85000000 0 2000000

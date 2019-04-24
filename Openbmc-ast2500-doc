@@ -16,9 +16,8 @@ Flashing Image:
 -------------------
 tftp 85000000 ast2500_evb.mtd
 protect off all
-erase 0 +2000000
 erase 20000000 +2000000
-cp.b 80000000 20000000 2000000
+cp.b 85000000 20000000 2000000
 
 
 

@@ -93,10 +93,17 @@ Creating branch2 outof branch1, work,commit into branch2,merge branch2 into nran
 ----------------------------------------------------------------------------------------
 
 git checkout -b subbranch_of_branch1  branch1
+git push -u origin subbranch_of_branch1
 
-
-git push origin subbranch_of_b1 
-
+example: 
+git clone -b aspeed-dev-v5.0 --single-branch https://github.com/AspeedTech-BMC/linux.git
+git branch -a
+git checkout -b subbranch_of_aspeed-dev-v5.0  aspeed-dev-v5.0
+git push -u origin subbranch_of_aspeed-dev-v5.0
+git branch -a
+git apply --stat fix_empty_poster.patch
+git apply --check fix_empty_poster.patch
+git apply  fix_empty_poster.patch  /  git am fix_empty_poster.patch
 
 
 

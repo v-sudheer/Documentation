@@ -89,7 +89,13 @@ git push origin master --force
 
 
 
+Creating branch2 outof branch1, work,commit into branch2,merge branch2 into nranch1
+----------------------------------------------------------------------------------------
 
+git checkout -b subbranch_of_branch1  branch1
+
+
+git push origin subbranch_of_b1 
 
 
 

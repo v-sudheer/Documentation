@@ -1,0 +1,14 @@
+
+Docker on Windows :
+--------------------
+
+Enable virtualization on windows.
+run Docker for Windows installer:  will enable Microsoft Hyper-V 
+ The installation provides Docker Engine, Docker CLI client, Docker Compose, Docker Machine, and Kitematic.
+
+
+Docker on linux :
+------------------
+
+
+

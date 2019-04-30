@@ -7,6 +7,33 @@ run Docker for Windows installer:  will enable Microsoft Hyper-V
  The installation provides Docker Engine, Docker CLI client, Docker Compose, Docker Machine, and Kitematic.
 
 
+With the latest version of Windows 10 (or 10 Server) and the beta of Docker for Windows,
+there's native Linux Container support on Windows.
+That means there's no Virtual Machine or Hyper-V involved (unless you want), so Linux Containers run on Windows itself using Windows 10's built in container support.
+
+
+
+
+Containers run on your host operating system which can be Linux or Windows.
+Ideally you can run Linux container on Linux OS and Windows container on Windows OS.
+This could be a problem in development machines if you want to develop linux container based application on Windows.
+To get around this, Docker allow users to create both linux and windows container on the same windows machine 
+without having to switch between OS platforms.
+To achieve this, Docker provides a Linux VM for Hyper-V called MobyLinuxVM as a part of installation process. 
+This VM runs Linux container and your Windows 10 host runs Windows Containers.
+You cannot run both Windows and Linux Containers at the same time.
+That is why Docker allows you to switch between Windows and Linux container.
+With this you can run both Linux and Windows Containers side by side as a part of the same Docker Installation for Windows.
+
+
+You can select which daemon (Linux or Windows) the Docker CLI talks to. 
+Select Switch to Windows containers to toggle to Windows containers. 
+Select Switch to Linux containers to toggle back to the default, Linux containers.
+
+
+
+
+
 Docker on linux :
 ------------------
 

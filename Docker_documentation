@@ -167,32 +167,37 @@ Docker on linux :
 Docker-containers:
 ------------------
 
+To push a repository to the Docker Hub,
+you must name your local image using your Docker Hub username, and the repository name that you created through Docker Hub on the web
+
+docker commit <existing-container> <hub-user>/<repo-name>[:<tag>] to commit changes.
+
+
+
 
 PS C:\Users\vsudheer> docker images
 REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
 itsspeed/ubuntu-16.04-python              latest              dd95ac80f554        2 years ago         437MB
 geissonator/ubuntu-openbmc-dev-test-x86   latest              c19a2fd65fd2        2 years ago         1.03GB
 PS C:\Users\vsudheer>PS C:\Users\vsudheer>
-PS C:\Users\vsudheer> docker create -i -t  c19a2fd65fd2
-15c416c13a6aec8469961fa292092c35963e3140282b37237fbddadd6f64dd88
-PS C:\Users\vsudheer>
-PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker create --name  openbmc_x86buildsystem -i -t  c19a2fd65fd2
+02d1adc8243afafc00ef23ab96e53eddf236e58b5df60283708cd3ea6c4382e0
 PS C:\Users\vsudheer> docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-15c416c13a6a        c19a2fd65fd2        "bash"              6 seconds ago       Created                                 mystifying_chebyshev
+02d1adc8243a        c19a2fd65fd2        "bash"              16 seconds ago      Created                                 openbmc_x86buildsystem
+PS C:\Users\vsudheer> docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 PS C:\Users\vsudheer>
-PS C:\Users\vsudheer> docker start 15c416c13a6a
-15c416c13a6a
+PS C:\Users\vsudheer> docker start 02d1adc8243a
+02d1adc8243a
 PS C:\Users\vsudheer> docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-15c416c13a6a        c19a2fd65fd2        "bash"              40 seconds ago      Up 3 seconds                            mystifying_chebyshev
+02d1adc8243a        c19a2fd65fd2        "bash"              53 seconds ago      Up 4 seconds                            openbmc_x86buildsystem
+PS C:\Users\vsudheer> docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+02d1adc8243a        c19a2fd65fd2        "bash"              58 seconds ago      Up 10 seconds                           openbmc_x86buildsystem
 PS C:\Users\vsudheer>
-PS C:\Users\vsudheer> docker exec 15c416c13a6a /bin/sh
-PS C:\Users\vsudheer>
-PS C:\Users\vsudheer> docker exec -i -t 15c416c13a6a /bin/sh
-
-
-#
+PS C:\Users\vsudheer> docker exec -i -t  02d1adc8243a  /bin/sh
 #
 # ls
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
@@ -200,12 +205,111 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 # exit
 PS C:\Users\vsudheer>
 PS C:\Users\vsudheer>
-PS C:\Users\vsudheer>
 PS C:\Users\vsudheer> docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-15c416c13a6a        c19a2fd65fd2        "bash"              4 minutes ago       Up 3 minutes                            mystifying_chebyshev
+02d1adc8243a        c19a2fd65fd2        "bash"              3 minutes ago       Up 2 minutes                            openbmc_x86buildsystem
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+02d1adc8243a        c19a2fd65fd2        "bash"              3 minutes ago       Up 2 minutes                            openbmc_x86buildsystem
+PS C:\Users\vsudheer>
+
+PS C:\Users\vsudheer> docker commit -m "added ftp and tftp to geissonator/ubuntu-openbmc-dev-test-x86" -a "sudheer v"  02d1adc8243a vsudheer/openbmc_ubuntu_buildsystem_image:v1
+sha256:d6dfca15c7f20bbce0ec42ed15279e72eb8e4a243878ff2fa174ee63e55eaaf0
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker images
+REPOSITORY                                  TAG                 IMAGE ID            CREATED             SIZE
+vsudheer/openbmc_ubuntu_buildsystem_image   v1                  d6dfca15c7f2        16 seconds ago      1.03GB
+itsspeed/ubuntu-16.04-python                latest              dd95ac80f554        2 years ago         437MB
+geissonator/ubuntu-openbmc-dev-test-x86     latest              c19a2fd65fd2        2 years ago         1.03GB
+PS C:\Users\vsudheer>
+
+PS C:\Users\vsudheer> docker push  vsudheer/openbmc_ubuntu_buildsystem_image
+The push refers to repository [docker.io/vsudheer/openbmc_ubuntu_buildsystem_image]
+c11bf10a3a96: Preparing
+2a8dfa950f5e: Preparing
+bf76cc74dbd6: Preparing
+26e9d65d467f: Preparing
+4f08cba1d638: Preparing
+c73b3797a8d0: Waiting
+25b49a62f642: Waiting
+8f3466e19873: Waiting
+9a39129ae0ac: Waiting
+98305c1a8f5e: Waiting
+0185b3091e8e: Waiting
+ea9f151abb7e: Waiting
+denied: requested access to the resource is denied
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: vsudheer
+Password:
+Login Succeeded
+PS C:\Users\vsudheer> docker push vsudheer/openbmc_ubuntu_buildsystem_image
+The push refers to repository [docker.io/vsudheer/openbmc_ubuntu_buildsystem_image]
+c11bf10a3a96: Pushed
+2a8dfa950f5e: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+bf76cc74dbd6: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+26e9d65d467f: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+4f08cba1d638: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+c73b3797a8d0: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+25b49a62f642: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+8f3466e19873: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+9a39129ae0ac: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+98305c1a8f5e: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+0185b3091e8e: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+ea9f151abb7e: Mounted from geissonator/ubuntu-openbmc-dev-test-x86
+v1: digest: sha256:8df2cbb28eb7ab59156cceaf01331abe5fe47b7a4ac2d5ece6dc950559c77ab5 size: 2832
 PS C:\Users\vsudheer>
 
 
 
+docker commit -m "added telnet" -a "sudheer v"  7325079064b1 vsudheer/openbmc_ubuntu_buildsystem_image:version2
+docker commit -m "added net-tools" -a "sudheer v"  7325079064b1 vsudheer/openbmc_ubuntu_buildsystem_image:version3
+docker push  vsudheer/openbmc_ubuntu_buildsystem_image
 
+pushed two commits at once :
+
+PS C:\Users\vsudheer> docker push  vsudheer/openbmc_ubuntu_buildsystem_image
+The push refers to repository [docker.io/vsudheer/openbmc_ubuntu_buildsystem_image]
+c11bf10a3a96: Layer already exists
+2a8dfa950f5e: Layer already exists
+bf76cc74dbd6: Layer already exists
+26e9d65d467f: Layer already exists
+4f08cba1d638: Layer already exists
+c73b3797a8d0: Layer already exists
+25b49a62f642: Layer already exists
+8f3466e19873: Layer already exists
+9a39129ae0ac: Layer already exists
+98305c1a8f5e: Layer already exists
+0185b3091e8e: Layer already exists
+ea9f151abb7e: Layer already exists
+v1: digest: sha256:8df2cbb28eb7ab59156cceaf01331abe5fe47b7a4ac2d5ece6dc950559c77ab5 size: 2832
+072dda7f9236: Pushed
+c11bf10a3a96: Layer already exists
+2a8dfa950f5e: Layer already exists
+bf76cc74dbd6: Layer already exists
+26e9d65d467f: Layer already exists
+4f08cba1d638: Layer already exists
+c73b3797a8d0: Layer already exists
+25b49a62f642: Layer already exists
+8f3466e19873: Layer already exists
+9a39129ae0ac: Layer already exists
+98305c1a8f5e: Layer already exists
+0185b3091e8e: Layer already exists
+ea9f151abb7e: Layer already exists
+version2: digest: sha256:b33d93f49eda95a24095d6625473a66e7b71b813b8334344b40a0c27df7919c6 size: 3043
+e4e61cba235a: Pushed
+c11bf10a3a96: Layer already exists
+2a8dfa950f5e: Layer already exists
+bf76cc74dbd6: Layer already exists
+26e9d65d467f: Layer already exists
+4f08cba1d638: Layer already exists
+c73b3797a8d0: Layer already exists
+25b49a62f642: Layer already exists
+8f3466e19873: Layer already exists
+9a39129ae0ac: Layer already exists
+98305c1a8f5e: Layer already exists
+0185b3091e8e: Layer already exists
+ea9f151abb7e: Layer already exists
+version3: digest: sha256:4d7762764ee56ad6c9f54258e1a0b241a0bacce94843b7c5aa0537760fd508e1 size: 3043

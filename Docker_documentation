@@ -155,3 +155,57 @@ Docker on linux :
 
 
 
+
+
+
+
+
+
+
+
+
+Docker-containers:
+------------------
+
+
+PS C:\Users\vsudheer> docker images
+REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
+itsspeed/ubuntu-16.04-python              latest              dd95ac80f554        2 years ago         437MB
+geissonator/ubuntu-openbmc-dev-test-x86   latest              c19a2fd65fd2        2 years ago         1.03GB
+PS C:\Users\vsudheer>PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker create -i -t  c19a2fd65fd2
+15c416c13a6aec8469961fa292092c35963e3140282b37237fbddadd6f64dd88
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+15c416c13a6a        c19a2fd65fd2        "bash"              6 seconds ago       Created                                 mystifying_chebyshev
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker start 15c416c13a6a
+15c416c13a6a
+PS C:\Users\vsudheer> docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+15c416c13a6a        c19a2fd65fd2        "bash"              40 seconds ago      Up 3 seconds                            mystifying_chebyshev
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker exec 15c416c13a6a /bin/sh
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker exec -i -t 15c416c13a6a /bin/sh
+
+
+#
+#
+# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+#
+# exit
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer>
+PS C:\Users\vsudheer> docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+15c416c13a6a        c19a2fd65fd2        "bash"              4 minutes ago       Up 3 minutes                            mystifying_chebyshev
+PS C:\Users\vsudheer>
+
+
+
+

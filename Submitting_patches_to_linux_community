@@ -1,0 +1,11 @@
+
+git status
+
+generated patch for both staged and unstaged changes:
+git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch
+
+./scripts/checkpatch.pl  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch
+
+
+
+

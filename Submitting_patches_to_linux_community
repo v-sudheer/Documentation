@@ -2,11 +2,29 @@
 git status
 
 generated patch for both staged and unstaged changes:
-git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch
+git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch1
 
-./scripts/checkpatch.pl  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch
-./scripts/checkpatch.pl  --fix  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch
+./scripts/checkpatch.pl  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch1
+./scripts/checkpatch.pl  --fix  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch1
+
+cp   DMA_UART_diff.patch1   DMA_UART_diff.patch2
+vimdiff   DMA_UART_diff.patch1.EXPERIMENTAL-checkpatch-fixes DMA_UART_diff.patch2
+
+git apply   ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch2
+
+git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch3
 
 
+./scripts/checkpatch.pl  --fix  ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch3
+Manually fix the errors and warnings
+tips that help manual fixing:
+fold -s -w80 file  ---->   only split at whitespace (-s), using max line width of 80 characters (-w80). 
+fold -s -w80   drivers/tty/serial/8250/8250_ast2500_uart_dma.c >  drivers/tty/serial/8250/8250_ast2500_uart_dma.c_fold
+
+git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch4
+
+
+perl -pi -e 's/^[\ \t]+|[\ \t]+$//g' [file]  ----> remove trailing and leading white spaces in source file
+ 
 
 

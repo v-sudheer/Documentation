@@ -18,7 +18,7 @@ Booting from RAM:
 ---------------------------
 setenv ethaddr 00:16:88:01:01:34
 dhcp
-setenv serverip 192.168.30.57
+setenv serverip 192.168.30.97
 tftp 85000000 ast2500_evb.mtd
 bootm 85080000
 

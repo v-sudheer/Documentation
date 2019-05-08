@@ -1,7 +1,17 @@
+export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/
+. oe-init-build-env
+touch conf/sanity.conf
+bitbake obmc-phosphor-image
+
+
+
 export  TEMPLATECONF=meta-aspeed/conf
 .   openbmc-env   (  dot space   openbmc-env --> soucing the script)
 touch conf/sanity.conf
 bitbake obmc-phosphor-image
+
+
+
 
 
 Booting from RAM:

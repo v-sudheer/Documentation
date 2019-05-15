@@ -1,7 +1,7 @@
 
 
 Generating patches:
-Git  format-patch   --cover-letter  --signoff  --to= <addr1> --to=<addr2> -9 --subject-prefix="patch" -o  <name of Directory for patches>
+Git  format-patch   --cover-letter  --signoff  --to= <addr1> --to=<addr2> -<no of commits> --subject-prefix="patch" -o  <name of Directory for patches>
 git  format-patch   --cover-letter  --signoff  --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com -9 --subject-prefix="patch" -o  /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/patchdir
 
 ./scripts/get_maintainer.pl  <  patchdir/0001-DT-changes-for-DMA-UART-of-AST2500.patch  to get addresses of MAINTAINERS.

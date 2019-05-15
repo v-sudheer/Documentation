@@ -253,4 +253,7 @@ Your branch is up-to-date with 'origin/master'.
 
 nothing to commit, working directory clean
 [12:44]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
-
+[14:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git branch -a
+* master
+  remotes/origin/master
+[12:44]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #

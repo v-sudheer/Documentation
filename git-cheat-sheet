@@ -187,4 +187,42 @@ Date:   Wed May 15 12:30:02 2019 +0530
 
     first commit
 [12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:34]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git remote add origin https://github.com/v-sudheer/AutomateTasks.git
+[12:34]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git branch -a
+* master
+[12:34]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git status
+On branch master
+nothing to commit, working directory clean
+[12:35]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git remote -v
+origin  https://github.com/v-sudheer/AutomateTasks.git (fetch)
+origin  https://github.com/v-sudheer/AutomateTasks.git (push)
+[12:35]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # vim dma_uart_test_for_ast2500.py
+[12:40]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git add dma_uart_test_for_ast2500.py
+[12:40]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   dma_uart_test_for_ast2500.py
+
+[12:40]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git commit -m "python script for testing DMA UART driver on AST2500 evb"
+[master 9b37392] python script for testing DMA UART driver on AST2500 evb
+ 1 file changed, 197 insertions(+)
+ create mode 100644 dma_uart_test_for_ast2500.py
+[12:41]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git status
+On branch master
+nothing to commit, working directory clean
+[12:42]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git log
+commit 9b37392f66877b1980b1049a61c005364018874e
+Author: sudheer.v <open.sudheer@gmail.com>
+Date:   Wed May 15 12:41:55 2019 +0530
+
+    python script for testing DMA UART driver on AST2500 evb
+
+commit 4472e0eaabb52e174eaf34c75a670c25a8be4132
+Author: sudheer.v <open.sudheer@gmail.com>
+Date:   Wed May 15 12:30:02 2019 +0530
+
+    first commit
+[12:42]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
 

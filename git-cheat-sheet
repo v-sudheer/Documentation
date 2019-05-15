@@ -38,6 +38,13 @@ git reset HEAD , git checkout
 
 git pull
 
+
+
+
+
+
+
+
 Adding a Remote:
 git remote add  <remote-name> <remote-url> 
 git remote add  openbmc  https://github.com/openbmc/openbmc.git
@@ -116,4 +123,68 @@ git apply  fix_empty_poster.patch  /  git am fix_empty_poster.patch
 
 
 
+
+
+Understanding git:
+------------------------
+
+[12:27]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts #
+[12:27]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts # mkdir Automate_tasks
+[12:27]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts # cd Automate_tasks/
+[12:27]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # echo "# AutomateTasks" >> README.md
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # ls -la
+total 12
+drwxr-xr-x 2 root root 4096 May 15 12:26 .
+drwxr-xr-x 8 root root 4096 May 15 12:25 ..
+-rw-r--r-- 1 root root   16 May 15 12:26 README.md
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git init
+Initialized empty Git repository in /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks/.git/
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git add README.md
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   README.md
+
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:28]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git log
+fatal: bad default revision 'HEAD'
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # ls -a
+.  ..  .git  README.md
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git branch
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git branch -a
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git remote -v
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:29]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git commit -m "first commit"
+[master (root-commit) 4472e0e] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # ls -la
+total 16
+drwxr-xr-x 3 root root 4096 May 15 12:26 .
+drwxr-xr-x 8 root root 4096 May 15 12:25 ..
+drwxr-xr-x 8 root root 4096 May 15 12:28 .git
+-rw-r--r-- 1 root root   16 May 15 12:26 README.md
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git status
+On branch master
+nothing to commit, working directory clean
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git branch -a
+* master
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git remote -v
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks # git log
+commit 4472e0eaabb52e174eaf34c75a670c25a8be4132
+Author: sudheer.v <open.sudheer@gmail.com>
+Date:   Wed May 15 12:30:02 2019 +0530
+
+    first commit
+[12:30]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/Organised_Folder/Automation_scripts/Automate_tasks #
 

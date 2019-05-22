@@ -1,0 +1,22 @@
+Enabling Early Printk:
+----------------------
+Enable Low level debugging via 8250 UART:
+
++CONFIG_DEBUG_LL=y
++CONFIG_DEBUG_LL_UART_8250=y
++CONFIG_DEBUG_UART_PHYS=0x1e784000
++CONFIG_DEBUG_UART_VIRT=0xf8184000
+
+
+ -> Kernel hacking
+ Kernel low-level debugging functions                            DEBUG_LL
+ Kernel low-level debugging via 8250 UART                        DEBUG_LL_UART_8250
+ Kernel low-level debugging via efm32 UART                       DEBUG_LL_UART_EFM32
+ Kernel low-level debugging via ARM Ltd PL01x Primecell UART     DEBUG_LL_UART_PL01X
+ 
+ Physical base address of debug UART                             DEBUG_UART_PHYS
+ Virtual base address of debug UART                              DEBUG_UART_VIRT
+ 
+ 
+ 
+ 

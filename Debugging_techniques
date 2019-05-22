@@ -11,14 +11,88 @@ Enable Low level debugging via 8250 UART in defconfig
  Physical base address of debug UART                             DEBUG_UART_PHYS
  Virtual base address of debug UART                              DEBUG_UART_VIRT
 
-in AST2500 case :
+defconfig [in AST2500 case] :
 -----------------
 +CONFIG_DEBUG_LL=y
 +CONFIG_DEBUG_LL_UART_8250=y
 +CONFIG_DEBUG_UART_PHYS=0x1e784000
 +CONFIG_DEBUG_UART_VIRT=0xf8184000
 
+setenv bootargs "console=ttyS4,115200n8 root=/dev/ram rw earlyprintk"
 
+
+
+Understand Image Layout :
+----------------------------------
+
+20080000   ---- ??
+
+kernel :   (Data Start in RAM)0x2008012c    0x80001000 (Load Address)
+            copy (Data Size:2709768 Bytes = 2.6 MiB)
+            
+            entry point --> 0x80001000
+
+ramdisk :   0x2031cb9c ----->
+
+fdt :  0x20315b3c   -----> 
+
+
+
+  Booting using the fdt blob at 0x20315b3c
+   Loading Kernel Image ... OK
+   Loading Ramdisk to 9ea16000, end 9eb9a0b7 ... OK
+   Loading Device Tree to 9ea0c000, end 9ea15f9e ... OK
+
+
+ast# boot
+## Loading kernel from FIT Image at 20080000 ...
+   Using 'conf@aspeed-ast2500-evb.dtb' configuration
+   Trying 'kernel@1' kernel subimage
+     Description:  Linux kernel
+     Type:         Kernel Image
+     Compression:  uncompressed
+     Data Start:   0x2008012c
+     Data Size:    2709768 Bytes = 2.6 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: 0x80001000
+     Entry Point:  0x80001000
+     Hash algo:    sha1
+     Hash value:   cc4d358cd27fca5341bf1f4060d058f4aee57ea9
+   Verifying Hash Integrity ... sha1+ OK
+## Loading ramdisk from FIT Image at 20080000 ...
+   Using 'conf@aspeed-ast2500-evb.dtb' configuration
+   Trying 'ramdisk@1' ramdisk subimage
+     Description:  obmc-phosphor-initramfs
+     Type:         RAMDisk Image
+     Compression:  lzma compressed
+     Data Start:   0x2031cb9c
+     Data Size:    1589431 Bytes = 1.5 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: unavailable
+     Entry Point:  unavailable
+     Hash algo:    sha1
+     Hash value:   15f33d975cae6d4bac54f15b9677eaeaa3f7d450
+   Verifying Hash Integrity ... sha1+ OK
+## Loading fdt from FIT Image at 20080000 ...
+   Using 'conf@aspeed-ast2500-evb.dtb' configuration
+   Trying 'fdt@aspeed-ast2500-evb.dtb' fdt subimage
+     Description:  Flattened Device Tree blob
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x20315b3c
+     Data Size:    28575 Bytes = 27.9 KiB
+     Architecture: ARM
+     Hash algo:    sha1
+     Hash value:   c935c4eb717632edd728ef3cf76d0f2bd7ba8cb7
+   Verifying Hash Integrity ... sha1+ OK
+   Booting using the fdt blob at 0x20315b3c
+   Loading Kernel Image ... OK
+   Loading Ramdisk to 9ea16000, end 9eb9a0b7 ... OK
+   Loading Device Tree to 9ea0c000, end 9ea15f9e ... OK
+
+Starting kernel ...
 
   
  

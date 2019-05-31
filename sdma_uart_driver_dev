@@ -253,6 +253,12 @@ kernel/linux-4.9/arch/arm/boot/dts/ast2500_evb.dts
 
 Testing the driver:
 -------------------
+set tty command example:
+stty -F /dev/ttyDMA0 -onlcr -echo
+listing all the settings:
+stty -F /dev/ttyDMA0 -a
+setting any param:
+stty -F /dev/ttyDMA0 115200
 
 on the target :
 stty -F /dev/ttyDMA0 -onlcr -echo

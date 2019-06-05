@@ -1,12 +1,28 @@
 
+./scripts/checkpatch.pl submitting_diff   : to meet coding guide lines of linux kernel
+./scripts/get_maintainer.pl <  submitting_diff :  to get addresses of MAINTAINERS.
+
+divide the commit into several Hash tags such that each patch indicates seperate feature/concepts
+
+git add drivers/tty/serial/8250/8250_ast2500_uart_dma.c
+git commit -m "AST2500 DMA UART driver"
+
+git add drivers/tty/serial/8250/Makefile drivers/tty/serial/8250/Kconfig
+git commit -m "build configuration for AST2500 DMA UART driver"
+
+git add arch/arm/boot/dts/aspeed-g5.dtsi arch/arm/boot/dts/aspeed-ast2500-evb.dts
+git commit -m "DT nodes for AST2500 DMA UART driver"
+
+git add  arch/arm/configs/aspeed_g5_defconfig MAINTAINERS
+git commit -m "defconfig and MAINTAINERS updated for AST2500 DMA UART driver"
+
+git add  Documentation/devicetree/bindings/serial/ast2500-dma-uart.txt
+git commit -m "Documentation: DT bindings AST2500 DMA UART driver"  
+
 
 Generating patches:
+
 Git  format-patch   --cover-letter  --signoff  --to= <addr1> --to=<addr2> -<no of commits> --subject-prefix="patch" -o  <name of Directory for patches>
-git  format-patch   --cover-letter  --signoff  --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com -9 --subject-prefix="patch" -o  /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/patchdir
-
-./scripts/get_maintainer.pl  <  patchdir/0001-DT-changes-for-DMA-UART-of-AST2500.patch  to get addresses of MAINTAINERS.
-
-regenerate patches with maintainer addresses:
 git  format-patch   --cover-letter  --signoff  --to=gregkh@linuxfoundation.org --to=jslaby@suse.com --to=joel@jms.id.au --to=andrew@aj.id.au --to=benh@kernel.crashing.org --to=robh+dt@kernel.org --to=mark.rutland@arm.com --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com --cc=linux-kernel@vger.kernel.org --cc=linux-serial@vger.kernel.org  --cc=devicetree@vger.kernel.org --cc=linux-aspeed@lists.ozlabs.org  -5 --subject-prefix="patch" -o  /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/patchdir    
 
 

@@ -26,6 +26,15 @@ Git  format-patch   --cover-letter  --signoff  --to= <addr1> --to=<addr2> -<no o
 git  format-patch   --cover-letter  --signoff  --to=gregkh@linuxfoundation.org --to=jslaby@suse.com --to=joel@jms.id.au --to=andrew@aj.id.au --to=benh@kernel.crashing.org --to=robh+dt@kernel.org --to=mark.rutland@arm.com --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com --cc=linux-kernel@vger.kernel.org --cc=linux-serial@vger.kernel.org  --cc=devicetree@vger.kernel.org --cc=linux-aspeed@lists.ozlabs.org  -5 --subject-prefix="patch" -o  /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/patchdir    
 
 
+git send-email <patch1> <patch2>..<patch N>
+git send-email 0000-cover-letter.patch 0002-build-configuration-for-AST2500-DMA-UART-driver.patch
+
+
+
+
+
+
+
 git status
 
 generated patch for both staged and unstaged changes:

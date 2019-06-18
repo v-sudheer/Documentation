@@ -25,6 +25,84 @@ Generating patches:
 Git  format-patch   --cover-letter  --signoff  --to= <addr1> --to=<addr2> -<no of commits> --subject-prefix="patch" -o  <name of Directory for patches>
 git  format-patch   --cover-letter  --signoff  --to=gregkh@linuxfoundation.org --to=jslaby@suse.com --to=joel@jms.id.au --to=andrew@aj.id.au --to=benh@kernel.crashing.org --to=robh+dt@kernel.org --to=mark.rutland@arm.com --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com --cc=linux-kernel@vger.kernel.org --cc=linux-serial@vger.kernel.org  --cc=devicetree@vger.kernel.org --cc=linux-aspeed@lists.ozlabs.org  -5 --subject-prefix="patch" -o  /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/patchdir    
 
+The perfect patch (https://www.ozlabs.org/~akpm/stuff/tpp.txt): 
+-------------------
+One patch per email, with the changelog in the body of the email.
+
+subject of patch:
+---------------------
+  Example subject: [patch 2/5] ext2: improve scalability of bitmap searching.
+Note that various people's patch receiving scripts will strip away Subject:text which is inside brackets [].
+So you should place information which has no long-term relevance to the patch inside brackets.
+This includes the word "patch" and any sequence numbering.The subsystem identifier("ext2:") should hence be outside brackets.
+  
+The Subject: should not be a filename.
+Use different Subjects for each patch in a patch series.
+Subject: should concisely describe the patch which that email contains.
+Bear in mind that the Subject: of your email becomes a globally-unique identifier for that patch. 
+Subject should includes mention of the subsystem which it affects.
+ 
+3.Attribution of patch:
+From: John Doe <jdoe@wherever.com> should be example very first line of the email.
+Downstream tools will pick this up and jdoe will get the git "Author" line.
+
+4: Changelog of patch:
+----------------------
+Bear in mind that the Subject and changelog which you provide will propagate all the way into the permanent kernel record.
+So the changelog should describe the patch fully:
+   - why the kernel needed patching
+   - the overall design approach in the patch
+   - implementation details
+   - testing results
+
+No need to mention what version of the kernel the patch applies to eg:("applies to 2.6.8-rc1")
+Don't include text such as "this patch does ..." or "here is patch which   ...".
+There's no point in telling us that it's a patch 
+Do not refer to earlier patches when changelogging a new version of a  patch. Each iteration of the
+   patch should contain a standalone changelog. 
+
+e) Add a Signed-off-by: line, as per section 11 of the
+   Documentation/SubmittingPatches file in the kernel tree.
+Signed-off-by: implies that you had some part in the developent of the
+patch, or that you handled it and passed it on to another developer for
+merging.
+If your role was purely review and/or testing, please use Acked-by: instead.
+Sometimes we also use Cc: in a patch to keep particular individuals
+abreast of the patch's status and to give them an opportunity to review it.
+
+
+f)Most people's patch receiving scripts will treat a ^--- string as the
+separator between the changelog and the patch itself.  You can use this to
+ensure that any diffstat information is discarded when the patch is  applied:
+
+Example:
+	Another few #if/#ifdef cleanups, this time for the PPC architecture.
+
+	Signed-off-by: <valdis.kletnieks@vt.edu>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	---
+
+	 25-akpm/arch/ppc/kernel/process.c                    |    2 +-
+	 25-akpm/arch/ppc/platforms/85xx/mpc85xx_cds_common.c |    2 +-
+	 25-akpm/arch/ppc/syslib/ppc85xx_setup.c              |    4 ++--
+	 3 files changed, 4 insertions(+), 4 deletions(-)
+
+	--- 25/arch/ppc/kernel/process.c
+	+++ 25/arch/ppc/kernel/process.c
+	@@ -667,7 +667,7 @@ void show_stack(struct task_struct *tsk,
+
+g) Non-changelog text:
+
+   Sometimes you want to include text in the email which isn't designed to
+   go into the changelog in the git repository.  Things like "this is already
+   in Fred's tree" or "this is an updated version of last Friday's patch" or
+   whatever.
+
+   You should place such text below the "^---" separator so that it is
+   auto-removed when being placed into the revision control system.
+
+
+
 
 git send-email <patch1> <patch2>..<patch N>
 git send-email 0000-cover-letter.patch 0002-build-configuration-for-AST2500-DMA-UART-driver.patch

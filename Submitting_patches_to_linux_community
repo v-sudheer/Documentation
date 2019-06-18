@@ -27,7 +27,10 @@ git  format-patch   --cover-letter  --signoff  --to=gregkh@linuxfoundation.org -
 
 The perfect patch (https://www.ozlabs.org/~akpm/stuff/tpp.txt): 
 -------------------
-One patch per email, with the changelog in the body of the email.
+1: Delivery
+===========
+a) Patches are delivered via email only.  Downloading them from internet servers is a pain.
+b) One patch per email, with the changelog in the body of the email.
 
 subject of patch:
 ---------------------
@@ -100,6 +103,95 @@ g) Non-changelog text:
 
    You should place such text below the "^---" separator so that it is
    auto-removed when being placed into the revision control system.
+
+5: The diff
+===========
+
+a) Patches should be in `patch -p1' form:
+
+  --- a/kernel/sched.c
+  +++ b/kernel/sched.c
+
+b) Make sure that your patches apply to the latest version of the kernel
+   tree.  Either straight from Linus's git tree or from
+   ftp://ftp.kernel.org/pub/linux/kernel/v2.6/snapshots/
+
+c) When raising patches for -mm kernels it's generally best to base them on
+   the latest Linus tree.  I'll work out any rejects/incompatibilities.  There
+   are of course exceptions to this.
+
+d) Ensure that your patch does not add new trailing whitespace.  The below
+   script will fix up your patch by stripping off such whitespace.
+
+	#!/bin/sh
+
+	strip1()
+	{
+		TMP=$(mktemp /tmp/XXXXXX)
+		cp "$1" "$TMP"
+		sed -e '/^+/s/[ 	]*$//' <"$TMP" >"$1"
+		rm "$TMP"
+	}
+
+	for i in "$@"
+	do
+		strip1 "$i"
+	done
+
+
+6: Patch series
+===============
+
+a) When sending a series of patches, number them in the Subject:s thusly:
+
+	[patch 1/10] ext2: block allocation: frob the globnozzle
+	[patch 2/10] ext2: block allocation: wash the pizza
+	etc.
+
+b) Some people like to introduce a patch series with an introductory email
+   which doesn't actually carry a patch, such as:
+
+	[patch 0/10] ext2: block allocation changes
+
+   Please don't do this.  There is no facility in the git tree to carry
+   changelog-only changesets such as this (or at least, we don't do that) so
+   the information in the introductory email will be lost.
+
+   So I end up copying and pasting your nice introduction into the
+   changelog for the first patch, so it gets into git.  I'll follow it with
+   the text
+
+	This patch:
+
+   and then I'll include the changelog for the first patch of the series.
+
+   It would be preferred if the patch originators were to do this.
+
+c) Try very hard to ensure that the kernel builds and runs correctly at
+   every step of the patch series.  This requirement exists because of
+   `git-bisect'.  If someone is doing a bisection search for a kernel bug and
+   they land upon your won't-compile point partway through the exercise, they
+   will be unhappy.
+
+d) If your patch series includes non-runtime-affecting things such as
+   cleanups, whitespace fixes, file renames, moving functions around, etc. then
+   this work should be done in the initial patches in the series.  The
+   functional changes should come later in the series.
+
+   This is mainly so that reversion of problematic changes becomes simpler.
+
+7: Overall
+==========
+
+a) Avoid MIME and attachements if possible.  Make sure that your email
+   client does not wordwrap your patch.  Make sure that your email client does
+   not replace tabs with spaces.
+
+   Mail yourself a decent-sized patch and check that it still applies.
+
+b) If all this still hopelessly fails then MIME attachments are an acceptable
+   reluctant fallback.  You must ensure that the attached patches have
+   text/plain mimetypes.
 
 
 

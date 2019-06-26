@@ -1,0 +1,8 @@
+Mercurie:
+----------------
+
+hg clone http://192.168.10.11/hg/main/p4_linux/cockpit/launchpad/
+hg clone http://$HGSERVER/hg/main/p4_linux/cockpit/$UBOOT/
+hg clone http://$HGSERVER/hg/main/p4_linux/cockpit/busybox/
+hg clone http://$HGSERVER/hg/main/p4_linux/cockpit/ipmi_drivers/
+

@@ -1,5 +1,18 @@
 porting eSPI drivers from pilotSDK to openBMC
 ----------------------------------------------
+[10:47]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/launchpad/ipmi_drivers # ls
+adc    bt           espi       espi_oob   gpio  LPC      master_make  pc    pinmux   Reset         smic   wdt
+asram  development  espi_mafs  espi_safs  i2c   mailbox  mc           peci  pwmtach  rtc_miscctrl  upctl
+
+
+port drivers in espi* directories into openBMC linux under drivers/soc
+espi -->   eSPI driver
+espi_oob --->  eSPI oob interface 
+espi_mafs ---> eSPI master flash intrface 
+espi_safs ---> eSPI slave flash interface 
+
+
+git clone  -b aspeed-linux-4.19-pilot4 --single-branch https://github.com/AspeedTech-BMC/linux
 
 under drivers/soc  create dir pilot.
 under pilot: create dirs: eSPI  eSPI_mafs eSPI_safs

@@ -46,3 +46,12 @@ obj-y                           += eSPI_mafs/
 obj-y                           += eSPI_safs/
 
 
+
+cd /home/vsudheer/pilotsoc_eSPI_drivers/linux
+source ~/openbmc_pilot_SDK_deploy/environment-setup-armv7a-openbmc-linux-gnueabi
+cp arch/arm/configs/pilot_defconfig  .config
+make ARCH=arm menuconfig
+make ARCH=arm
+
+
+

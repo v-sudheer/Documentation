@@ -1,0 +1,21 @@
+
+http://192.168.10.11/hg/main/p4_linux/launchpad
+
+/elx/ashok/SDKREL/
+
+procedure to release SDK:
+mkdir  SDKRELdir (SDKrel-Date)
+copy bootloader_ddr_1600.lod and thachweave.bin from previousrelease directory/binaries/
+get  bootloder source code from Hardware 
+
+hg clone http://192.168.10.11/hg/main/p4_linux/cockpit/launchpad/
+copy sdkrel.sh from launchpad checkout into SDKRELdir
+
+sdkrel.sh
+
+creating patches :
+checkout script pgen.sh
+update previous releae tags in this script
+run script
+
+

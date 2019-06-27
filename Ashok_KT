@@ -5,6 +5,8 @@ http://192.168.10.11/hg/main/p4_linux/launchpad
 
 procedure to release SDK:
 mkdir  SDKRELdir (SDKrel-Date)
+/elx/sandbox/pilot_fw/pilot/ashok/SDKREL/SDKREL20180228
+
 copy bootloader_ddr_1600.lod and thachweave.bin from previousrelease directory/binaries/
 get  bootloder source code from Hardware 
 
@@ -18,4 +20,21 @@ checkout script pgen.sh
 update previous releae tags in this script
 run script
 
+if you need full patch from prev-rel to curr-rel : do it manually 
+
+
+
+Example:
+/elx/sandbox/pilot_fw/pilot/ashok/SDKREL/SDKREL20171130 -- OLD rel NOV30-2017
+we want to generate SDKREL20171231 - dec31-2017rel  and compare to know procedure to release
+
+cd /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/
+mkdir /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/SDKREL20171231
+cd /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/SDKREL20171231
+
+cp -dprf  /elx/sandbox/pilot_fw/pilot/ashok/SDKREL/SDKREL20171130/binaries/  . 
+cd /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/binaries
+rm pilotimage.bin ramdisk.gz u-boot.bin uImage
+
+cp -dprf /elx/sandbox/pilot_fw/pilot/ashok/SDKREL/SDKREL20171231/bootloader .
 

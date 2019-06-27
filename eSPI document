@@ -1,3 +1,27 @@
 porting eSPI drivers from pilotSDK to openBMC
 ----------------------------------------------
 
+under drivers/soc  create dir pilot.
+under pilot: create dirs: eSPI  eSPI_mafs eSPI_safs
+
+cd /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc
+mkdir pilot
+cd /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc/pilot
+mkdir eSPI  espi_mafs espi_safs 
+
+add pilot under soc
+diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
++obj-y                           += pilot/
+
+
+vsudheer@aspeed-fw:~/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc/pilot$ cat Makefile
+# SPDX-License-Identifier: GPL-2.0
+#
+# Makefile for the pilot SOC specific device drivers.
+#
+obj-y                           += eSPI/
+obj-y                           += eSPI_oob/
+obj-y                           += eSPI_mafs/
+obj-y                           += eSPI_safs/
+
+

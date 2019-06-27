@@ -38,3 +38,23 @@ rm pilotimage.bin ramdisk.gz u-boot.bin uImage
 
 cp -dprf /elx/sandbox/pilot_fw/pilot/ashok/SDKREL/SDKREL20171231/bootloader .
 
+cd /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel
+hg clone http://192.168.10.11/hg/main/p4_linux/cockpit/launchpad/
+cp /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/launchpad/sdk.py SDKREL20171231/
+cp /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/launchpad/sdkrel.sh SDKREL20171231/
+
+cd /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/SDKREL20171231
+mkdir binaries_314 binaries_44
+cp binaries/* binaries_314/
+cp cp binaries/* binaries_44/
+rm -Rf binaries
+ /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/sdk_rel/SDKREL20171231 # ls
+binaries_314  binaries_44  bootloader  cpilot4  cpilot4_44  pilot4sources  sdk.py  sdkrel.sh
+
+python 
+
+
+
+
+
+

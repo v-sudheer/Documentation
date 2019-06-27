@@ -14,12 +14,20 @@ espi_safs ---> eSPI slave flash interface
 
 git clone  -b aspeed-linux-4.19-pilot4 --single-branch https://github.com/AspeedTech-BMC/linux
 
+do we have CONFIG_ARCH_PILOT in this Linux repo??
+vsudheer@aspeed-fw:~/pilotsoc_eSPI_drivers/linux/arch/arm/configs$ grep PILOT -Rni *
+pilot_defconfig:26:CONFIG_ARCH_PILOT=y
+pilot_defconfig:94:CONFIG_PILOT_LPC_SNOOP=y
+pilot_defconfig:159:CONFIG_I2C_PILOT=y
+pilot_defconfig:166:CONFIG_PINCTRL_ASPEED_PILOT=y
+pilot_defconfig:170:CONFIG_GPIO_PILOT=y
+
 under drivers/soc  create dir pilot.
 under pilot: create dirs: eSPI  eSPI_mafs eSPI_safs
 
-cd /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc
+cd /home/vsudheer/pilotsoc_eSPI_drivers/linux/drivers/soc
 mkdir pilot
-cd /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc/pilot
+cd /home/vsudheer/pilotsoc_eSPI_drivers/linux/drivers/soc/pilot
 mkdir eSPI  espi_mafs espi_safs 
 
 add pilot under soc
@@ -27,7 +35,7 @@ diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
 +obj-y                           += pilot/
 
 
-vsudheer@aspeed-fw:~/uart_sdma_merge/Linux_community_push_dir/linux/drivers/soc/pilot$ cat Makefile
+vim /home/vsudheer/pilotsoc_eSPI_drivers/linux/drivers/soc/pilot/Makefile
 # SPDX-License-Identifier: GPL-2.0
 #
 # Makefile for the pilot SOC specific device drivers.

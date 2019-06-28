@@ -65,3 +65,6 @@ in ipmi_drivers/Reset/ResetHandler.c -->  LDN_RESET and ESPI_RESET are handled i
 but ESPI_RESET is not called through this ResetCallBack but handled as IRQ_SIO_PSR in espi virtual wire espi_vw.c
 espi/espi_vw.c:616:    if (request_irq(IRQ_SIO_PSR, espi_reset_handler, IRQF_SHARED, "espi_reset", &espi_reset_handler) < 0)
 
+so comment all the callback-installations
+
+

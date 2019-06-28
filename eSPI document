@@ -53,5 +53,15 @@ cp arch/arm/configs/pilot_defconfig  .config
 make ARCH=arm menuconfig
 make ARCH=arm
 
+Error1:
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o: In function `espi_oob_exit':
+pilot_espi_oob.c:(.text+0x520): undefined reference to `UnInstalleSPIResetHandler'
+pilot_espi_oob.c:(.text+0x55c): undefined reference to `UnInstalleSPIResetHandler'
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o: In function `pilot_espi_oob_probe':
+pilot_espi_oob.c:(.text+0x6f0): undefined reference to `InstalleSPIResetHandler'
+Makefile:1027: recipe for target 'vmlinux' failed
 
+in ipmi_drivers/Reset/ResetHandler.c -->  LDN_RESET and ESPI_RESET are handled in ResetCallBack.
+but ESPI_RESET is not called through this ResetCallBack but handled as IRQ_SIO_PSR in espi virtual wire espi_vw.c
+espi/espi_vw.c:616:    if (request_irq(IRQ_SIO_PSR, espi_reset_handler, IRQF_SHARED, "espi_reset", &espi_reset_handler) < 0)
 

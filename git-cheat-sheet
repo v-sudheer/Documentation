@@ -66,6 +66,20 @@ git clone -b pilot4 --single-branch  https://github.com/AspeedTech-BMC/u-boot.gi
 git clone -b  thud --single-branch   https://github.com/openbmc/openbmc.git
 
 
+fetch a remote branch into already existing local repo:
+--------------------------------------------------------
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git branch -a
+* pilot4-rel5
+  remotes/origin/pilot4-rel5
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git fetch origin pilot4-linux-4.19:pilot4-linux-4.19
+From https://github.com/AspeedTech-BMC/openbmc
+ * [new branch]          pilot4-linux-4.19 -> pilot4-linux-4.19
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git branch -a
+  pilot4-linux-4.19
+* pilot4-rel5
+  remotes/origin/pilot4-rel5
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
 
 
 Reverting a most recent commit:

@@ -68,3 +68,32 @@ espi/espi_vw.c:616:    if (request_irq(IRQ_SIO_PSR, espi_reset_handler, IRQF_SHA
 so comment all the callback-installations
 
 
+
+
+drivers/soc/pilot/eSPI_mafs/pilot_espi_mafs.o: In function `.LANCHOR0':
+pilot_espi_mafs.c:(.bss+0xc): multiple definition of `se_pilot_espi_va_base'
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o:pilot_espi_oob.c:(.bss+0x0): first defined here
+drivers/soc/pilot/eSPI_mafs/pilot_espi_mafs.o: In function `.LANCHOR0':
+pilot_espi_mafs.c:(.bss+0x2c): multiple definition of `se_sys_clk_va_base'
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o:pilot_espi_oob.c:(.bss+0x2c): first defined here
+Makefile:1027: recipe for target 'vmlinux' failed
+make: *** [vmlinux] Error 1
+
+
+
+
+drivers/soc/pilot/eSPI_safs/pilot_espi_safs.o: In function `.LANCHOR1':
+pilot_espi_safs.c:(.bss+0x10): multiple definition of `irq_espi_fac'
+drivers/soc/pilot/eSPI_mafs/pilot_espi_mafs.o:pilot_espi_mafs.c:(.bss+0x18): first defined here
+drivers/soc/pilot/eSPI_safs/pilot_espi_safs.o: In function `.LANCHOR1':
+pilot_espi_safs.c:(.bss+0x4): multiple definition of `se_pilot_espi_va_base'
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o:pilot_espi_oob.c:(.bss+0x0): first defined here
+drivers/soc/pilot/eSPI_safs/pilot_espi_safs.o: In function `.LANCHOR1':
+pilot_espi_safs.c:(.bss+0x14): multiple definition of `se_sys_clk_va_base'
+drivers/soc/pilot/eSPI_oob/pilot_espi_oob.o:pilot_espi_oob.c:(.bss+0x2c): first defined here
+Makefile:1027: recipe for target 'vmlinux' failed
+make: *** [vmlinux] Error 1
+
+
+
+

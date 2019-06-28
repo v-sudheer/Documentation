@@ -80,7 +80,15 @@ vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git branch -a
 * pilot4-rel5
   remotes/origin/pilot4-rel5
 vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
-
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git checkout pilot4-linux-4.19
+Switched to branch 'pilot4-linux-4.19'
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git branch -a
+* pilot4-linux-4.19
+  pilot4-rel5
+  remotes/origin/pilot4-rel5
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
+vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
 
 Reverting a most recent commit:
 --------------------------------

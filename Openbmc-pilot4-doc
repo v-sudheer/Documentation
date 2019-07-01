@@ -86,5 +86,15 @@ boot from RAM
 tftpboot 0x85000000 pilot4_evb.mtd
 bootm 0x85080000
 
+SDK-Uboot : has PILOT_ORION prompt, 
+to flash openBMC image when uboot is SDK-uboot :
+PILOT_ORION> protect off all
+Un-Protect Flash Bank # 1
+Un-Protect Flash Bank # 2
+Un-Protect Flash Bank # 4
+Un-Protect Flash Bank # 5
+PILOT_ORION> erase 0 +2000000
+
+
 
 

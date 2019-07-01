@@ -94,6 +94,8 @@ Un-Protect Flash Bank # 2
 Un-Protect Flash Bank # 4
 Un-Protect Flash Bank # 5
 PILOT_ORION> erase 0 +2000000
+.....Erased 512 sectors
+tftpboot 0 pilot_evb.mtd
 
 
 

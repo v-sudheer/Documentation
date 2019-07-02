@@ -34,6 +34,11 @@ export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
 bitbake obmc-phosphor-image
 now remove old build folder
 
+SDK deployment:
+------------------
+bitbake -c populate_sdk obmc-phosphor-image
+
+
 pilot4-openbmc Images:
 ---------------------------------------------
 ls -l build/tmp/deploy/images/evb-pilot4/
@@ -108,6 +113,18 @@ espi_test.c:16:10: fatal error: stdio.h: No such file or directory
  #include <stdio.h>
           ^~~~~~~~~
 compilation terminated.
+
+
+Compiling Applications for open-bmc SDK:
+source  /opt/openbmc-phosphor/2.5/environment-setup-armv6-openbmc-linux-gnueabi
+ 
+ cd /opt/applications/crypto
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall  -o ssl_client  ssl_client.c  -lssl -lcrypto
+(or)
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall   -o ssl_client  ssl_client.c   -L/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ssl_git_repo/ssl_staging_dir/lib  -l:libssl.1.0.2  –l: libcrypto1.0.2
+ 
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall   -Wall   -o ssl_server   ssl_server.c  -lssl -lcrypto
+ 
 
 
 

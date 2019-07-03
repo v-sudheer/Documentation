@@ -81,9 +81,16 @@ cp build/tmp/deploy/images/evb-pilot4/obmc-phosphor-image-evb-pilot4-20190301111
 on target machine:
 (better avoid this method, it is slow)
 tftpboot 0x85000000 pilot4-thud.static.mtd
-pilot_erase_spi 0 0 0 2000000    [ pilot_erase_spi <bus#> <CS#> <Start Address#> <Size> ]
 sf probe 0:0
 sf erase 0 2000000
+sf  write 85000000 0 2000000
+cmp.b 85000000  2000000
+
+
+use this method:
+tftpboot 0x85000000 pilot4-thud.static.mtd
+pilot_erase_spi 0 0 0 2000000    [ pilot_erase_spi <bus#> <CS#> <Start Address#> <Size> ]
+sf probe 0:0
 sf  write 85000000 0 2000000
 cmp.b 85000000  2000000
 

@@ -125,7 +125,7 @@ compilation terminated.
 
 
 Compiling Applications for open-bmc SDK:
-source  /opt/openbmc-phosphor/2.5/environment-setup-armv6-openbmc-linux-gnueabi
+source  /home/vsudheer/openbmc_SDK_oecore/environment-setup-armv6-openbmc-linux-gnueabi
  
  cd /opt/applications/crypto
 arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall  -o ssl_client  ssl_client.c  -lssl -lcrypto

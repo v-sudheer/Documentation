@@ -1,0 +1,81 @@
+
+/tempo # blkid
+/dev/mmcblk2: UUID="0000-0184"
+/dev/ram0: UUID="21bb2424-f4a7-4a0a-a847-5091b0ce2e17"
+/tempo #
+
+Insert SD card
+
+tempo #
+/tempo # mmc1: new high speed SDHC card at address 0007
+mmcblk0: mmc1:0007 SD08G 7.42 GiB
+ mmcblk0: p1
+/tempo #
+/tempo #
+/tempo # blkid
+/dev/mmcblk0p1: UUID="18DE-77AC"
+/dev/mmcblk0: UUID="A44F-EE35"
+/dev/mmcblk2: UUID="0000-0184"
+/dev/ram0: UUID="21bb2424-f4a7-4a0a-a847-5091b0ce2e17"
+/tempo #
+
+
+
+mmcblk0 is SD card
+mmcblk0p1 --> partition 1
+
+/dev/mmcblk2   --->  eMMC ??
+/dev/mmcblk0    --->  SD card
+/dev/mmcblk0p1  --->  First partition of SD card
+
+/tempo # ls -ltr /dev/mmc*
+brw-------    1 root     0         179,  32 Jan  1 00:00 /dev/mmcblk2boot1
+brw-------    1 root     0         179,  24 Jan  1 00:00 /dev/mmcblk2boot0
+brw-------    1 root     0         179,  16 Jan  1 00:00 /dev/mmcblk2
+brw-------    1 root     0         179,   1 Jan  1 17:11 /dev/mmcblk0p1
+brw-------    1 root     0         179,   0 Jan  1 17:11 /dev/mmcblk0
+/tempo #
+/tempo #
+
+
+/tempo # fdisk /dev/mmcblk0
+
+The number of cylinders for this disk is set to 243200.
+There is nothing wrong with that, but this is larger than 1024,
+and could in certain setups cause problems with:
+1) software that runs at boot time (e.g., old versions of LILO)
+2) booting and partitioning software from other OSs
+   (e.g., DOS FDISK, OS/2 FDISK)
+
+Command (m for help): m
+Command Action
+a       toggle a bootable flag
+b       edit bsd disklabel
+c       toggle the dos compatibility flag
+d       delete a partition
+l       list known partition types
+n       add a new partition
+o       create a new empty DOS partition table
+p       print the partition table
+q       quit without saving changes
+s       create a new empty Sun disklabel
+t       change a partition's system id
+u       change display/entry units
+v       verify the partition table
+w       write table to disk and exit
+x       extra functionality (experts only)
+
+Command (m for help): p
+
+Disk /dev/mmcblk0: 7969 MB, 7969177600 bytes
+4 heads, 16 sectors/track, 243200 cylinders
+Units = cylinders of 64 * 512 = 32768 bytes
+
+        Device Boot      Start         End      Blocks  Id System
+/dev/mmcblk0p1               1      243200     7782392   b Win95 FAT32
+
+Command (m for help):
+
+
+
+

@@ -134,6 +134,25 @@ arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroo
  
 arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall   -Wall   -o ssl_server   ssl_server.c  -lssl -lcrypto
  
+building test Application for eSPI:
+----------------------------------
+cd ~/openbmc/
+export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf/
+. oe-init-build-env
+bitbake -c populate_sdk obmc-phosphor-image
+cd ~/openbmc/build/tmp/deploy/sdk
+./oecore-x86_64-armv7a-toolchain-nodistro.0.sh
+Enter target directory for SDK (default: /usr/local/oecore-x86_64): ~/openbmc_SDK_oecore
+source  ~/openbmc_SDK_oecore/environment-setup-armv6-openbmc-linux-gnueabi
+arm-openbmc-linux-gnueabi-gcc --sysroot=~/openbmc_SDK_oecore/sysroots/armv7a-openbmc-linux-gnueabi -Wall  -o espi_test  espi_test.c
+
+Run the espi_test app:
+-----------------------
+mknod /dev/espi_vw c <major> 1
+./espi_test -h
+
+
+
 
 
 

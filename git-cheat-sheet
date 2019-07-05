@@ -113,10 +113,16 @@ suppose you want to remove commits from  master  branch of  remote - origin
 git remote -v : ensure remote correctly
 git checkout master
 git rebase -i  < hash of commit which is parent of offending commit>
-pick/drop commits as requied in vim editor , ^ exit, enter
+pick/drop commits as requied in vim editor , ^X(ctrl+X) exit, enter,--> Successfully rebased and updated refs/heads/master
 git push origin master --force 
 
 
+
+git remote -v
+git checkout aspeed-linux-4.19-pilot4
+git rebase -i < Hash of parent of offending commit>
+edit pick/drop(as requied) before commits in vim editor , ^X(ctrl+X) exit, enter,--> Successfully rebased and updated refs/heads/aspeed-linux-4.19-pilot4
+git push origin aspeed-linux-4.19-pilot4 --force
 
 Creating branch2 outof branch1, work,commit into branch2,merge branch2 into nranch1
 ----------------------------------------------------------------------------------------

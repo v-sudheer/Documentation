@@ -141,6 +141,27 @@ git apply --check fix_empty_poster.patch
 git apply  fix_empty_poster.patch  /  git am fix_empty_poster.patch
 
 
+example2:
+---------
+
+vsudheer@aspeed-fw:~/pilotsoc_eSPI_drivers/linux$ git branch -a
+ * aspeed-linux-4.19-pilot4
+  remotes/origin/aspeed-linux-4.19-pilot4
+vsudheer@aspeed-fw:~/pilotsoc_eSPI_drivers/linux$
+
+git pull
+
+git checkout -b  aspeed-linux-4.19-pilot4-espi  aspeed-linux-4.19-pilot4
+vsudheer@aspeed-fw:~/pilotsoc_eSPI_drivers/linux$ git branch -a
+  aspeed-linux-4.19-pilot4
+* aspeed-linux-4.19-pilot4-espi
+  remotes/origin/aspeed-linux-4.19-pilot4
+vsudheer@aspeed-fw:~/pilotsoc_eSPI_drivers/linux$
+
+git push -u origin aspeed-linux-4.19-pilot4-espi
+Branch 'aspeed-linux-4.19-pilot4-espi' set up to track remote branch 'aspeed-linux-4.19-pilot4-espi' from 'origin'.
+
+check in the remote -- the branch will appear.
 
 
 

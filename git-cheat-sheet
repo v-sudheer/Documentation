@@ -90,7 +90,7 @@ vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$ git branch -a
 vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
 vsudheer@aspeed-fw:~/openbmc_pilot5/openbmc$
 
-Reverting a most recent commit:
+Reverting a most recent commit(which is not yet pushed):
 --------------------------------
 git pull origin thud
 git log

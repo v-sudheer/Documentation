@@ -20,6 +20,159 @@ defconfig [in AST2500 case] :
 
 setenv bootargs "console=ttyS4,115200n8 root=/dev/ram rw earlyprintk"
 
+vsudheer@aspeed-fw:~/uart_sdma_merge/Linux_community_push_dir/linux$ cat diff_Early_printk_ast2500
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index 9db3c584b2cb..52cf3b98f4b4 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -201,6 +201,7 @@ machine-$(CONFIG_ARCH_OMAP2PLUS)    += omap2
+ machine-$(CONFIG_ARCH_ORION5X)         += orion5x
+ machine-$(CONFIG_ARCH_PICOXCELL)       += picoxcell
+ machine-$(CONFIG_ARCH_PXA)             += pxa
++machine-$(CONFIG_ARCH_ASPEED)          += aspeed
+ machine-$(CONFIG_ARCH_QCOM)            += qcom
+ machine-$(CONFIG_ARCH_RDA)             += rda
+ machine-$(CONFIG_ARCH_REALVIEW)                += realview
+diff --git a/arch/arm/mach-aspeed/Makefile b/arch/arm/mach-aspeed/Makefile
+new file mode 100644
+index 000000000000..158ac7e6e947
+--- /dev/null
++++ b/arch/arm/mach-aspeed/Makefile
+@@ -0,0 +1,2 @@
++
++obj-y                          += aspeed_early_print.o
+diff --git a/arch/arm/mach-aspeed/aspeed_early_print.c b/arch/arm/mach-aspeed/aspeed_early_print.c
+new file mode 100644
+index 000000000000..c23aa9913a31
+--- /dev/null
++++ b/arch/arm/mach-aspeed/aspeed_early_print.c
+@@ -0,0 +1,27 @@
++#include <linux/types.h>
++#include <linux/kernel.h>
++#include <linux/tty.h>
++
++extern void power_putstr(const char *ptr);
++void fb_printf(const char *fmt, ...)
++{
++       static char buf[1024];
++       va_list args;
++       int r;
++
++       va_start(args, fmt);
++
++       r = vsnprintf(buf, sizeof(buf), fmt, args);
++       power_putstr(buf);
++
++       va_end(args);
++
++}
++
++int fb_initialized = 0;
++
++void fb_init(void)
++{
++       fb_initialized = 1;
++}
++
+diff --git a/init/main.c b/init/main.c
+index c86a1c8f19f4..7b8dbe2f33c1 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -534,15 +534,55 @@ void __init __weak arch_call_rest_init(void)
+        rest_init();
+ }
+
++
++void __iomem *uart_base = (void*)CONFIG_DEBUG_UART_VIRT;
++#define SERIAL_LSR_THRE 0x20 /* THR Empty */
++#define SERIAL_LSR 0x14
++#define SERIAL_THR 0x00
++static void
++power_putc(const char c)
++{
++       volatile unsigned int status=0;
++#ifdef CONFIG_MACH_PILOT4
++       return;//It may be causing some spurious interrupts
++#endif
++       /* Wait for Ready */
++       do
++       {
++       status = *(volatile unsigned int*)(uart_base+SERIAL_LSR);
++       }
++       while (!((status & SERIAL_LSR_THRE)==SERIAL_LSR_THRE) );
++
++       /* Write Character */
++       *(volatile unsigned int*)(uart_base+SERIAL_THR) = c;
++return;
++}
++
++void power_putstr(const char *ptr)
++{
++       char c;
++
++       while ((c = *ptr++) != '\0') {
++               if (c == '\n')
++                       power_putc('\r');
++               power_putc(c);
++       }
++}
++
++
+ asmlinkage __visible void __init start_kernel(void)
+ {
+        char *command_line;
+        char *after_dashes;
+
++       power_putstr("In start kernel \n");
+        set_task_stack_end_magic(&init_task);
++       power_putstr("In start kernel \n");
+        smp_setup_processor_id();
++       power_putstr("In start kernel \n");
+        debug_objects_early_init();
+
++       power_putstr("In start kernel \n");
+        cgroup_init_early();
+
+        local_irq_disable();
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index d3d170374ceb..0a0c55439255 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -1961,6 +1961,8 @@ int vprintk_default(const char *fmt, va_list args)
+ }
+ EXPORT_SYMBOL_GPL(vprintk_default);
+
++extern void fb_printf(const char *fmt, ...);
++
+ /**
+  * printk - print a kernel message
+  * @fmt: format string
+@@ -1986,9 +1988,22 @@ asmlinkage __visible int printk(const char *fmt, ...)
+ {
+        va_list args;
+        int r;
++       static /*const */char prefix[] = "[Shi] ";
++       static char buf[1024] = "\n";
+
+        va_start(args, fmt);
+-       r = vprintk_func(fmt, args);
++
++       if (1) {
++               /*(LSU) Prefix only if previous line was ended */
++               if(buf[strlen(buf)-1] == '\n')
++                       fb_printf("%s", prefix);
++
++               r = vsnprintf(buf, sizeof(buf), fmt, args);
++
++               fb_printf("%s", buf);
++
++       } else
++               r = vprintk_func(fmt, args);
+        va_end(args);
+
+        return r;
+vsudheer@aspeed-fw:~/uart_sdma_merge/Linux_community_push_dir/linux$
+
 
 
 Understand Image Layout :

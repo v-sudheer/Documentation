@@ -370,6 +370,28 @@ root@evb-ast2500:/sys/kernel/debug/tracing# cat trace | head -n20
 root@evb-ast2500:/sys/kernel/debug/tracing#
 
 
+Using trace_printk():
+-----------------------
+ If you are debugging a high volume area such as the timer interrupt, the scheduler, or the network,
+ printk() can lead to bogging down the system or can even create a live lock.
+
+Ftrace introduces a new form of printk() called trace_printk(). It can be used just like printk(), 
+and can also be used in any context (interrupt code, NMI code, and scheduler code). 
+trace_printk():it does not output to the console. Instead it writes to the Ftrace ring buffer and can be read via the trace file.
+
+Writing into the ring buffer with trace_printk() only takes around a tenth of a microsecond or so.
+But using printk(), especially when writing to the serial console, may take several milliseconds per write.
+The performance advantage of trace_printk() lets you record the most sensitive areas of the kernel with very little impact.
+
+trace_printk() output will appear in any tracer, even the function and function graph tracers.
+
+
+
+Enabling and disabling the trace :
+------------------------------------
+    [tracing]# echo 0 > tracing_on
+    [tracing]# echo function_graph > current_tracer
+    [tracing]# echo 1 > tracing_on; run_test; echo 0 > tracing_on
 
 
 

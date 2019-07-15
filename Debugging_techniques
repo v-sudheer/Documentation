@@ -271,3 +271,111 @@ Revision        : 0000
 Serial          : 0000000000000000
 root@evb-ast2500:~#
 
+
+
+
+
+
+
+
+
+using FTRACE :
+------------------
+CONFIG_FUNCTION_TRACER
+CONFIG_FUNCTION_GRAPH_TRACER
+CONFIG_STACK_TRACER
+CONFIG_DYNAMIC_FTRACE
+/sys/kernel/debug/tracing  ---> is crated in debugfs when Ftrace is configured .
+
+root@evb-ast2500:/sys/kernel/debug/tracing# cat available_tracers
+function_graph function nop
+
+
+root@evb-ast2500:/sys/kernel/debug/tracing# cat current_tracer
+nop
+root@evb-ast2500:/sys/kernel/debug/tracing# echo function > current_tracer
+root@evb-ast2500:/sys/kernel/debug/tracing#
+root@evb-ast2500:/sys/kernel/debug/tracing# cat current_tracer
+function
+root@evb-ast2500:/sys/kernel/debug/tracing#
+
+
+
+root@evb-ast2500:/sys/kernel/debug/tracing# cat trace | head -n25
+# tracer: function
+#
+# entries-in-buffer/entries-written: 72020/741175   #P:1
+#
+#                              _-----=> irqs-off
+#                             / _----=> need-resched
+#                            | / _---=> hardirq/softirq
+#                            || / _--=> preempt-depth
+#                            ||| /     delay
+#           TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
+#              | |       |   ||||       |         |
+             cat-1074  [000] ....   393.134185: handle_mm_fault <-do_page_fault
+             cat-1074  [000] ....   393.134190: ptep_set_access_flags <-handle_mm_fault
+             cat-1074  [000] ....   393.134193: __sync_icache_dcache <-ptep_set_access_flags
+             cat-1074  [000] ....   393.134196: up_read <-do_page_fault
+             cat-1074  [000] d...   393.134203: do_DataAbort <-__dabt_usr
+             cat-1074  [000] d...   393.134205: do_page_fault <-do_DataAbort
+             cat-1074  [000] ....   393.134207: down_read_trylock <-do_page_fault
+             cat-1074  [000] ....   393.134209: find_vma <-do_page_fault
+             cat-1074  [000] ....   393.134210: vmacache_find <-find_vma
+             cat-1074  [000] ....   393.134212: vmacache_update <-find_vma
+             cat-1074  [000] ....   393.134214: handle_mm_fault <-do_page_fault
+             cat-1074  [000] ....   393.134217: ptep_set_access_flags <-handle_mm_fault
+             cat-1074  [000] ....   393.134219: __sync_icache_dcache <-ptep_set_access_flags
+             cat-1074  [000] ....   393.134220: up_read <-do_page_fault
+
+
+root@evb-ast2500:/sys/kernel/debug/tracing# cat trace |  tail -n10
+             cat-1083  [000] ....   474.924206: seq_open <-__seq_open_private
+             cat-1083  [000] ....   474.924209: kmem_cache_alloc <-seq_open
+             cat-1083  [000] ....   474.924211: should_failslab <-kmem_cache_alloc
+             cat-1083  [000] ....   474.924214: __mutex_init <-seq_open
+             cat-1083  [000] ....   474.924218: kmem_cache_alloc_trace <-tracing_open
+             cat-1083  [000] ....   474.924220: should_failslab <-kmem_cache_alloc_trace
+             cat-1083  [000] ....   474.924224: mutex_lock <-tracing_open
+             cat-1083  [000] ....   474.924225: kmem_cache_alloc_trace <-tracing_open
+             cat-1083  [000] ....   474.924227: should_failslab <-kmem_cache_alloc_trace
+             cat-1083  [000] ....   474.924232: __mutex_init <-tracing_open
+
+root@evb-ast2500:/sys/kernel/debug/tracing# cat available_tracers
+function_graph function nop
+root@evb-ast2500:/sys/kernel/debug/tracing# echo function_graph > current_tracer
+root@evb-ast2500:/sys/kernel/debug/tracing# cat current_tracer
+function_graph
+root@evb-ast2500:/sys/kernel/debug/tracing# cat trace | head -n20
+# tracer: function_graph
+#
+# CPU  DURATION                  FUNCTION CALLS
+# |     |   |                     |   |   |   |
+ 0)   7.394 us    |          cap_capable();
+ 0) + 13.010 us   |        } /* cap_vm_enough_memory */
+ 0)   4.202 us    |        __vm_enough_memory();
+ 0)               |        vm_area_dup() {
+ 0)               |          kmem_cache_alloc() {
+ 0)   2.182 us    |            should_failslab();
+ 0)   6.949 us    |          }
+ 0) + 13.576 us   |        }
+ 0)               |        anon_vma_fork() {
+ 0)               |          anon_vma_clone() {
+ 0)               |            kmem_cache_alloc() {
+ 0)   2.141 us    |              should_failslab();
+ 0)   7.152 us    |            }
+ 0)   2.990 us    |            down_write();
+ 0)   4.525 us    |            anon_vma_interval_tree_insert();
+ 0)   2.505 us    |            up_write();
+root@evb-ast2500:/sys/kernel/debug/tracing#
+
+
+
+
+
+
+
+
+
+
+

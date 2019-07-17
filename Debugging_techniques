@@ -274,6 +274,9 @@ root@evb-ast2500:~#
 
 
 
+using pr_debug:
+----------------
+echo 8 > /proc/sys/kernel/printk
 
 
 

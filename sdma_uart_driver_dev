@@ -1,5 +1,5 @@
 multiple functions THR/RX/DLL for tx/rx buffer register
-if (DLAB bit in LCR@offset 0x0c) is set :  DLL else thr/rx   
+if DLAB (bit7 in LCR@offset 0x0c) is set :  DLL else thr/rx   
 
 
 

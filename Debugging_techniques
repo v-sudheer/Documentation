@@ -397,6 +397,18 @@ Enabling and disabling the trace :
     [tracing]# echo 1 > tracing_on; run_test; echo 0 > tracing_on
 
 
+example:
+--------
+root@evb-ast2500:/tmp# cat script.sh
+cd /sys/kernel/debug/tracing
+echo 0 > tracing_on
+echo function_graph > current_tracer
+echo 1 > tracing_on
+echo "hello" > /dev/ttyS2
+echo 0 > tracing_on
+cat trace
+root@evb-ast2500:/tmp#
+
 
 
 

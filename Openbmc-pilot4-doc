@@ -2,7 +2,7 @@ openbmc -pilot4:
 ---------------------------------------------
  git clone  https://github.com/openbmc/openbmc.git
  git tag -l
- git checkout pilot4
+ git checkout pilot4l
  git branch
 
 
@@ -18,6 +18,10 @@ git branch
 
 compiling pilot4 openbmc Image:
 ----------------------------------
+meta-aspeed/meta-pilot/recipes-kernel/linux/files/defconfig
+meta-aspeed/meta-pilot/recipes-kernel/linux/linux-aspeed_git.bb
+meta-aspeed/meta-pilot/recipes-kernel/linux/linux-aspeed.inc
+
 export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-pilot4/conf
 . oe-init-build-env
 bitbake obmc-phosphor-image

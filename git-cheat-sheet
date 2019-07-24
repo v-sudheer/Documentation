@@ -127,6 +127,7 @@ First save the <diff of  commit to be removed> -- you will loose the changes onc
 git rebase -i < Hash of parent of offending commit>
 edit pick/drop(as requied) before commits in vim editor ,
 ^X(ctrl+X) exit, enter,--> Successfully rebased and updated refs/heads/aspeed-linux-4.19-pilot4
+(^X,save-yes,Enter)--> Successfully rebased and updated refs/heads/aspeed-linux-4.19-pilot4.
 git push origin aspeed-linux-4.19-pilot4 --force
 
 Creating branch2 outof branch1, work,commit into branch2,merge branch2 into nranch1

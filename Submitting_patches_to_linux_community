@@ -236,6 +236,10 @@ perl -pi -e 's/^[\ \t]+|[\ \t]+$//g' [file]  ----> remove trailing and leading w
 One Example:
 ---------------
 
+create patches 
+git  format-patch   --cover-letter  --signoff  --to=gregkh@linuxfoundation.org --to=jslaby@suse.com --to=joel@jms.id.au --to=andrew@aj.id.au --to=benh@kernel.crashing.org --to=robh+dt@kernel.org --to=mark.rutland@arm.com --to=shivahshankar.shankarnarayanrao@aspeedtech.com --to=sudheer.veliseti@aspeedtech.com --cc=linux-kernel@vger.kernel.org --cc=linux-serial@vger.kernel.org  --cc=devicetree@vger.kernel.org --cc=linux-aspeed@lists.ozlabs.org  -5 --subject-prefix="patch v4" -o  /home/vsudheer/uart_sdma_merge/vsudheer-openbmc-linux/patchv4/
+
+git reset --hard HEAD~5
 
 apply patchset and compile image:
 cd ~/uart_sdma_merge/Linux_community_push_dir/linux
@@ -252,6 +256,9 @@ make ARCH=arm menuconfig ----> disable rx dma interrupt
 make ARCH=arm savedefconfig
 cp defconfig /home/vsudheer/uart_sdma_merge/openbmc/meta-aspeed/recipes-kernel/linux/ast2500/defconfig_RX_TIMER
 
+compile openbmc images for both and test
+
+if working : add change logs to /home/vsudheer/uart_sdma_merge/vsudheer-openbmc-linux/patchv4
 
 
 

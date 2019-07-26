@@ -96,4 +96,9 @@ make: *** [vmlinux] Error 1
 
 
 
+cd /home/vsudheer/pilotsoc_eSPI_drivers/espi_test_app/espi_mafs/
+source ~/openbmc_pilot_SDK_deploy/environment-setup-armv7a-openbmc-linux-gnueabi
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_pilot_SDK_deploy/sysroots/armv7a-openbmc-linux-gnueabi -Wall -o espimafs_app espimafs.c
+
+
 

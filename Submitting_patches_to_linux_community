@@ -233,4 +233,26 @@ git diff HEAD  > ~/uart_sdma_merge/linux_patches_dir/DMA_UART_diff.patch4
 perl -pi -e 's/^[\ \t]+|[\ \t]+$//g' [file]  ----> remove trailing and leading white spaces in source file
  
 
+One Example:
+---------------
+
+
+apply patchset and compile image:
+cd ~/uart_sdma_merge/Linux_community_push_dir/linux
+git apply --stat  /home/vsudheer/uart_sdma_merge/vsudheer-openbmc-linux/patchv4/*
+git apply  /home/vsudheer/uart_sdma_merge/vsudheer-openbmc-linux/patchv4/*
+
+cp arch/arm/configs/aspeed_g5_defconfig .config
+make ARCH=arm menuconfig ----> By default rx dma interrupt  is Enabled (CONFIG_AST_UART_DMA_RX_INTERRUPT)
+ls defconfig;rm defconfig;
+make ARCH=arm savedefconfig
+cp defconfig /home/vsudheer/uart_sdma_merge/openbmc/meta-aspeed/recipes-kernel/linux/ast2500/defconfig_DMA_RX_INT
+
+make ARCH=arm menuconfig ----> disable rx dma interrupt
+make ARCH=arm savedefconfig
+cp defconfig /home/vsudheer/uart_sdma_merge/openbmc/meta-aspeed/recipes-kernel/linux/ast2500/defconfig_RX_TIMER
+
+
+
+
 

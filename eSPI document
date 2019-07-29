@@ -1,3 +1,16 @@
+ESPI interface :
+
+PCH -- platform controller HUB
+EC - Embedded controller(eg: BMC)
+
+current config :
+flash---(SPI bus)---PCH ------(LPC bus)---------EC---(SPI-bus)-----flash(BMC-fw)
+
+flash---(SPI bus)---PCH ------(eSPI)---------EC---(SPI-bus)-----flash(BMC-fw)
+
+
+
+
 porting eSPI drivers from pilotSDK to openBMC
 ----------------------------------------------
 [10:47]:root: /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/launchpad/ipmi_drivers # ls

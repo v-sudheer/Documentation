@@ -38,6 +38,12 @@ pilot_defconfig:170:CONFIG_GPIO_PILOT=y
 under drivers/soc  create dir pilot.
 under pilot: create dirs: eSPI  eSPI_mafs eSPI_safs
 
+
+
+
+
+
+
 cd /home/vsudheer/pilotsoc_eSPI_drivers/linux/drivers/soc
 mkdir pilot
 cd /home/vsudheer/pilotsoc_eSPI_drivers/linux/drivers/soc/pilot
@@ -113,5 +119,20 @@ cd /home/vsudheer/pilotsoc_eSPI_drivers/espi_test_app/espi_mafs/
 source ~/openbmc_pilot_SDK_deploy/environment-setup-armv7a-openbmc-linux-gnueabi
 arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_pilot_SDK_deploy/sysroots/armv7a-openbmc-linux-gnueabi -Wall -o espimafs_app espimafs.c
 
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_pilot_SDK_deploy/sysroots/armv7a-openbmc-linux-gnueabi -Wall -o espi_oob_test espioob.c
 
+arm-openbmc-linux-gnueabi-gcc --sysroot=/home/vsudheer/openbmc_pilot_SDK_deploy/sysroots/armv7a-openbmc-linux-gnueabi -Wall -o espi_vw_test espi_test.c
+
+
+
+
+
+espivw_test -i <ioctl#> -n <index(hex)> -v<value(hex)>
+
+CMD_IOCTL_ESPIVW_GET_HOST2BMC_STATUS
+CMD_IOCTL_ESPIVW_SET_BMC2HOST_VWIRE
+CMD_IOCTL_ESPIVW_WAIT_FOR_INTERRUPT
+CMD_IOCTL_ESPIVW_ENABLE_INTERRUPT
+CMD_IOCTL_ESPIVW_DISABLE_INTERRUPT
+CMD_IOCTL_ESPIVW_CLEAR_RESET
 

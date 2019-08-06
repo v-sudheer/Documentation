@@ -1,0 +1,155 @@
+
+
+
+
+
+
+PCIe Security Hardware Functional testing :
+
+server connections:
+SATA0 port ----- HARDdisk SATA port
+power connector to SMPS 
+BMC connections:
+SLOT6 PCIE -------  PCIE1 connector on ast2500 board
+monitor VGA port to Graphics controller port on AST2500
+
+
+switch OFF the X86 server system.
+switch OFF  BMC eval-board
+
+switch on AST2600 board
+
+@uboot prompt
+mw 1e6e2500 2020
+md 1e6e2500   -----> verify 1e6e2500: 000020e0 00000000
+This Enables Graphics controller.
+
+mw 1e7f20f0 0x00020000   ---> 0x1e7f20f0[17]=1 this will Enable SRAM(0000-0FFF) : 
+md 1e7f20f0
+
+md 1e7f0000  ---------> read SRAM0 (1e7F0000 - 1e7f 0fff)
+
+md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
+md 1e7f20dc   ---------> debug resiter - Number of bytes written to SRAM0
+
+
+
+switch ON X86 server:
+login: pilot , pw: Emulex1
+terminal --> su , password
+
+lspci -vvv
+lspci -nn 
+
+
+lspci -nn | grep ASPEED
+02:00.0 PCI bridge [0604]: ASPEED Technology, Inc. AST1150 PCI-to-PCI Bridge [1a03:1150] (rev 04) 
+03:00.0  VGA compatible controller [0300]: ASPEED Technology, Inc. ASPEED graphics Family [1a03:2000] (rev 50)
+
+
+
+lspci | grep ASPEED
+PCI bridge :                      02:00.0  AST1150 , PCI-to-PCI Bridge,
+	Bus: primary=02, secondary=03, subordinate=03, sec-latency=64
+	I/O behind bridge: 0000e000-0000efff
+	Memory behind bridge: f9000000-fa0fffff
+
+	Capabilities: [50] MSI: Enable+ Count=1/32 Maskable- 64bit+
+		Address: 00000000fee0f00c  Data: 415a
+	Capabilities: [200 v1] #23
+	Capabilities: [2c0 v1] #23
+
+	
+VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 50) (prog-if 00 [VGA controller])
+	Interrupt: pin A routed to IRQ 11
+	Region 0: Memory at f9000000 (32-bit, non-prefetchable) [size=16M]
+	Region 1: Memory at fa040000 (32-bit, non-prefetchable) [size=128K]
+	Region 2: I/O ports at e000 [size=128]
+	Expansion ROM at fa000000 [disabled] [size=256K]
+
+	Capabilities: [50] MSI: Enable- Count=1/4 Maskable- 64bit+
+		Address: 0000000000000000  Data: 0000
+
+
+cd ast_pcie_secure
+
+insmod astpcisecure.ko
+
+pci driver: 
+register to pci subsystem with (vendor-id=0x1A03 , device-id = 0x1150 )---> pci bridge 
+ 
+
+probe-fn( pci_dev pci_dev1 , pci_device_id *)
+what is pdev->irq -- 80
+pci_resource_start(pdev,n) --->  gives starting address of resource at bar n of pci-bridge 
+pci_enable_device(pdev);   ---> Enable pci-bridge
+pci_find_ext_capability(pdev,0x23) --> returns config offset at wich extended capabilty 0x23(pci security) resides 
+
+dump config space of pci-bridge
+pci_read_config_dword(pdev,i,&dw) : i from 0 to 0x100(256) --- Basic config space
+
+pci_read_config_dword(pdev,i,&dw) : i from 0x200 to 0x300(256) --- config space
+
+pci_read_config_byte(pdev, 0x3c, &intline); --> PC_INTERRUPT_LINE reg
+
+what is  intline ? 
+
+
+pci_enable_msi(pdev) ---> enable msi interrupt of pci bridge
+if success --> pdev->irq is msi interrupt else legacy interrupt 
+                intline =  pdev->irq ;
+				
+
+request_irq( intline, ast_pcie_secure_irq_handler...)
+
+0x2d8 --> 
+0x2dc --> 
+
+pci_write_config_dword(pdev, addr,data)
+pci_read_config_dword(pdev, addr,&dw);
+
+write control word to Enable msi -->  0x2d8 , 0x0000|00002
+write data to SRAM  ----------------> 0x2dc , 0xbababababa
+write  go command ------------------> 0x2d8 , 0x8000000000
+
+
+register_chrdev(0,PILOT_FUNC,&pilot_func_ops)
+export functionality to user space.
+
+ 
+
+
+Base Address of PCIe Device Security Enhancement 8KB SRAM = 0x1E7F 0000 
+Address Space of PCIe Device Security Enhancement 8KB SRAM = from 0x1E7F 0000 to 0x1E7F 1FFF
+
+Base Address of PCIe Device Security Enhancement Controller = 0x1E7F 2000 
+Physical address of register = (Base address of PCIe Device Security Enhancement Controller) + Offset
+
+
+0x1e7f 20d4 ---> Authentication status
+0x1e7f 20d8 ---> Authentication control
+
+
+mw 1e7f20d8 0x00000080   
+md 1e7f20d8
+
+below should generate two msi interrupts
+mw 1e7f20d8 0x00000080 
+mw 1e7f20d8 0x00000000
+mw 1e7f20d8 0x00000080
+mw 1e7f20d8 0x00000000
+
+cat /proc/interrupts on Host side
+
+mw 1e7f20d8 0x00000080 
+mw 1e7f20d4 0x00000080
+mw 1e7f20d4 0x00000000
+mw 1e7f20d4 0x00000080
+mw 1e7f20d4 0x00000000
+
+. The controller should generate MSI when Host Offset 18h[2]=1 and 0x1e7f20d4[31] 0 to 1.]
+
+Host side --> 
+
+
+

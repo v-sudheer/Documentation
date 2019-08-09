@@ -1,6 +1,8 @@
 
 
-
+lspci -s 00:1f.3 -xxxx
+lspci -vvv
+lspci 
 
 
 

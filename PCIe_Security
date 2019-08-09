@@ -2,8 +2,9 @@
 
 lspci -s 00:1f.3 -xxxx
 lspci -vvv
-lspci 
-
+lspci  -s 1f:00.0 -vvv 
+lspci  -s 1f:00.0 -mm -v
+lspci -s 1f:00.0 -k
 
 
 PCIe Security Hardware Functional testing :

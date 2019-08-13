@@ -1,0 +1,3 @@
+ssh pilotadmin@192.168.30.97(password)
+route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.30.254
+scp  vsudheer@192.168.10.10:/tftpboot/ast2500_uart_sdma_evb.mtd  .

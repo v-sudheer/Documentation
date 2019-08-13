@@ -1,3 +1,12 @@
+setup 192.168.30.97 -------  AST2500 
 ssh pilotadmin@192.168.30.97(password)
 route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.30.254
 scp  vsudheer@192.168.10.10:/tftpboot/ast2500_uart_sdma_evb.mtd  .
+
+minicom /dev/ttyUSB0
+setenv ethaddr 00:16:88:01:01:34
+dhcp
+setenv serverip 192.168.30.97
+tftp 85000000 ast2500_uart_sdma_evb.mtd
+bootm 85080000
+

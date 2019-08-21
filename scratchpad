@@ -8,6 +8,7 @@ minicom /dev/ttyUSB0
 setenv ethaddr 00:16:88:01:01:34
 dhcp
 setenv serverip 192.168.30.97
+tftpboot 85000000 ast2500_uart_sdma_evb.mtd
 tftp 85000000 ast2500_uart_sdma_evb.mtd
 bootm 85080000
 stty -F /dev/ttyDMA2 -onlcr -echo

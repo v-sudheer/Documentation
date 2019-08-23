@@ -38,6 +38,7 @@ md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
 md 1e7f20dc   ---------> debug resiter - Number of bytes written to SRAM0
 
 
+mw 1e6e2c20 000c817b ----> Enabling Host2BMC device
 
 switch ON X86 server:
 login: pilot , pw: Emulex1

@@ -192,8 +192,25 @@ from device :
 	       
 From host: 
 		program Bridge MSI capability
+		 pci-config-write : address:50   data:0x008B7805
+		 pci-config-write : address:54   data:0x9ABCDEFC
+		 pci-config-write : address:58   data:0x12345678
+		 pci-config-write : address:5c   data:0x0000DADF
+		 	
+		Program VGA MSI capability:
 		
-		Program VGA MSI capability
+		 pci-config-write : address:04   data:0x00100547
+		 pci-config-write : address:50   data:0x00857805
+		 pci-config-write : address:54   data:0x9ABCDEFC
+		 pci-config-write : address:58   data:0x12345678
+		 pci-config-write : address:5c   data:0x0000DAEF
+		 
+		 pci-config-read : address:0x2cc  --> check Authentication interrupt support(bit 0)
+		 
+		 pci_enable_msi
+		 
+		 
+		
 		
 		
 	       

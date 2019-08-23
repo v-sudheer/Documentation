@@ -30,6 +30,8 @@ This Enables Graphics controller.
 mw 1e7f20f0 0x00020000   ---> 0x1e7f20f0[17]=1 this will Enable SRAM(0000-0FFF) : 
 md 1e7f20f0
 
+mw  1e6e2c20 0xc807B ---> Enable E2L: SCUC20[15]
+
 md 1e7f0000  ---------> read SRAM0 (1e7F0000 - 1e7f 0fff)
 
 md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
@@ -153,6 +155,56 @@ mw 1e7f20d4 0x00000000
 . The controller should generate MSI when Host Offset 18h[2]=1 and 0x1e7f20d4[31] 0 to 1.]
 
 Host side --> 
+
+
+mw 1e7f20d4       01  ---> setting BUSY ( but we dont set busy)
+
+##########################################
+
+
+
+mw 1e6e2500 2020
+md 1e6e2500   -----> verify 1e6e2500: 000020e0 00000000
+This Enables Graphics controller.
+
+mw 1e7f20f0 0x00020000   ---> 0x1e7f20f0[17]=1 this will Enable SRAM(0000-0FFF) : 
+md 1e7f20f0
+
+mw  1e6e2c20 0xc807B ---> Enable E2L: SCUC20[15]
+
+md 1e7f0000  ---------> read SRAM0 (1e7F0000 - 1e7f 0fff)
+
+md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
+md 1e7f20dc   ---------> debug resiter - Number of bytes written to SRAM0
+
+
+test procedure:
+
+from device : 
+		mw 1e6e2500 2020   ----> Enable VGA controller		
+		mw 1e6e2c20  c807b   --> Enable E2l: SCUC20[15]
+                md 1e6e2c20
+		
+		mw 1e7f20f0 0x00020000 ---> Enable SRAM
+	        mw 1e7f20cc 101  ---> set Authentication Interrupt support
+	      
+	      	md 1e7f20cc
+	       
+From host: 
+		program Bridge MSI capability
+		
+		Program VGA MSI capability
+		
+		
+	       
+	       
+	              
+From device :  
+	       mw 1e7f20d8 0x00000080   ---> response ready set and toggle
+	       mw 1e7f20d8 0x00000000
+		
+		md 1e7f20d8
+		lspci -s 02:00.0 -xxxx | grep 2d0   --> check 2d4
 
 
 

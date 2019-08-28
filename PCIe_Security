@@ -217,7 +217,11 @@ From host:
 	       
 	       
 	              
-From device :  
+From device :
+
+	       mw 1e7f20e4  0x02       ----> Read mail box
+	       mw 1e7f1000  0xAA
+	       mw 1e7f1000  0xBB
 	       mw 1e7f20d8 0x00000080   ---> response ready set and toggle
 	       mw 1e7f20d8 0x00000000
 		

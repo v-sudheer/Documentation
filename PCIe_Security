@@ -37,6 +37,9 @@ md 1e7f0000  ---------> read SRAM0 (1e7F0000 - 1e7f 0fff)
 md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
 md 1e7f20dc   ---------> debug resiter - Number of bytes written to SRAM0
 
+	       mw 1e7f20e4  0x02       ----> Read mail box
+	       mw 1e7f1000  0xAA
+	       mw 1e7f1000  0xBB
 
 mw 1e6e2c20 000c817b ----> Enabling Host2BMC device
 
@@ -219,9 +222,7 @@ From host:
 	              
 From device :
 
-	       mw 1e7f20e4  0x02       ----> Read mail box
-	       mw 1e7f1000  0xAA
-	       mw 1e7f1000  0xBB
+
 	       mw 1e7f20d4 0x80000000   ---> response ready set and toggle
 	       mw 1e7f20d4 0x00000000
 		

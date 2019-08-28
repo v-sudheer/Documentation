@@ -231,3 +231,11 @@ From device :
 
 
 
+Host2BMC device test:
+---------------------------
+
+
+mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
+echo "1" > /sys/bus/pci/rescan
+
+

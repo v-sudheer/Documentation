@@ -233,10 +233,21 @@ From device :
 
 Host2BMC device test:
 ---------------------------
-mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
-echo "1" > /sys/bus/pci/rescan
-
 http://192.168.10.30:7990/projects/BMC/repos/ast_modules/browse -- Location to add bmc side module for host2bmc
+
+@BMC-console:
+	mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
+@HOST: 
+	echo "1" > /sys/bus/pci/rescan
+	lspci -vvv | grep ASPEED
+	lspci -s <slot> -xxxx | grep 00:  (eg: lspci -s 03:01.0 -xxxx | grep 00: )
+	
+0x1E7E0F00 --->  HOST2BMC_CONFIGSPACE_OFFSET
+*(0x1E7E0F00 + 0x10) =  0xFFF00001;  // Expose 1MB
+@BMC-console:
+	mw 0x1E7E0F10 0xFFF00001
+
+
 
 
 

@@ -244,6 +244,8 @@ http://192.168.10.30:7990/projects/BMC/repos/ast_modules/browse -- Location to a
 	
 0x1E7E0F00 --->  HOST2BMC_CONFIGSPACE_OFFSET
 *(0x1E7E0F00 + 0x10) =  0xFFF00001;  // Expose 1MB
+*(0x1E7E0F00 + 0x18) = 0x87F00000;   // mem-bar remap
+
 @BMC-console:
 	mw 0x1E7E0F10 0xFFF00001
 

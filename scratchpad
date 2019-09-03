@@ -15,3 +15,14 @@ stty -F /dev/ttyDMA2 -onlcr -echo
 echo "hello" > /dev/ttyDMA2
 
 
+PCIe HOST2BMC porting:
+-----------------------------
+cd /home/vsudheer/PCIE_host2bmc_App/pcie_device2/bmc/module
+source ~/openbmc_ast2500_SDK_deploy/environment-setup-armv6-openbmc-linux-gnueabi
+make
+
+git clone -b ast2600_thud --single-branch    https://github.com/AspeedTech-BMC/openbmc.git
+export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/
+. oe-init-build-env
+touch conf/sanity.conf
+bitbake obmc-phosphor-image

@@ -1,0 +1,35 @@
+SDK :  http://192.168.10.30:7990/projects/BMC/repos/sdk/browse
+--------------------------------------------------------------------
+git clone http://192.168.10.30:7990/scm/bmc/sdk.git
+ls sdk
+
+
+git clone -b aspeed-master-v2019.04 --single-branch https://github.com/AspeedTech-BMC/u-boot.git 
+
+cd sdk/kernel/linux
+git clone -b aspeed-dev-v5.1 --single-branch https://github.com/AspeedTech-BMC/linux.git 
+
+make help
+make ast2600_config
+
+
+
+
+
+
+openbmc:
+----------
+git clone -b ast2600_thud --single-branch    https://github.com/AspeedTech-BMC/openbmc.git
+
+
+meta-aspeed/recipes-kernel/linux/linux-aspeed_git.bb
+meta-aspeed/recipes-kernel/linux/linux-aspeed.inc
+meta-aspeed/recipes-kernel/linux/ast2500/defconfig
+
+export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/
+. oe-init-build-env
+touch conf/sanity.conf
+bitbake obmc-phosphor-image
+
+ls -l tmp/deploy/images/evb-ast2600/
+

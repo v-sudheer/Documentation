@@ -7,8 +7,14 @@ git clone http://192.168.10.30:7990/scm/bmc/sdk.git
 ls sdk
 git clone -b aspeed-master-v2019.04 --single-branch https://github.com/AspeedTech-BMC/u-boot.git  sdk/bootloader/u-boot/
 git clone -b aspeed-dev-v5.1 --single-branch https://github.com/AspeedTech-BMC/linux.git  sdk/kernel/linux/
+
+cd sdk
 make help
+cat README
 make ast2600_config
+source setenv.sh
+make
+
 
 
 openbmc:
@@ -66,5 +72,7 @@ bootm 85080000
 
 debug-commands: 
   ast# imi 85080000 --->  ## Checking Image at 85080000 ... Unknown image format!
+
+tmp/deploy/images/evb-ast2600/fitImage--4.9.0+git0+d8a3162222-r0-evb-ast2600-20190903090113.bin
 
 

@@ -64,5 +64,7 @@ setenv serverip 192.168.30.97
 tftp 85000000 openbmc_ast2600.mtd
 bootm 85080000
 
+debug-commands: 
+  ast# imi 85080000 --->  ## Checking Image at 85080000 ... Unknown image format!
 
 

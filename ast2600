@@ -32,4 +32,24 @@ touch conf/sanity.conf
 bitbake obmc-phosphor-image
 
 ls -l tmp/deploy/images/evb-ast2600/
+cp tmp/deploy/images/evb-ast2600/obmc-phosphor-image-evb-ast2600-20190903090113.static.mtd  /tftpboot/openbmc_ast2600.mtd
+
+192.168.30.97 -- Local machine tftp fast
+----------------------------------------
+ctrl+alt+F1 --- console:login-> root,password
+
+ssh pilot@192.168.30.97,password
+su, password
+cd /tftpboot/
+scp vsudheer@192.168.10.10:/tftpboot/openbmc_ast2600.mtd .
+
+Booting from RAM:
+---------------------------
+printenv
+dhcp
+setenv serverip 192.168.30.97
+tftp 85000000 openbmc_ast2600.mtd
+bootm 85080000
+
+
 

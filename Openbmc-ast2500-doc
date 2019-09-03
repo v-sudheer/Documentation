@@ -1,3 +1,11 @@
+
+
+check  meta-aspeed/meta-pilot/recipes-kernel/   vs  meta-aspeed/recipes-kernel/
+
+meta-aspeed/recipes-kernel/linux/linux-aspeed_git.bb
+meta-aspeed/recipes-kernel/linux/linux-aspeed.inc
+meta-aspeed/recipes-kernel/linux/ast2500/defconfig
+
 export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/
 . oe-init-build-env
 touch conf/sanity.conf

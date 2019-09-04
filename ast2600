@@ -14,6 +14,32 @@ cat README
 make ast2600_config
 source setenv.sh
 make
+make image
+
+transfer image :
+root@192.168.30.97,password
+route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.30.254
+scp root@192.168.10.130:/tftpboot/ast2600_all.bin /tftpboot/
+
+boot the image:
+--------------
+setenv serverip 192.168.30.97
+tftp 85000000 ast2600_all.bin
+bootm 85080000 85600000 85072000
+
+
+
+
+gatewayip=192.168.30.254
+ipaddr=192.168.2.100
+netmask=255.255.255.0
+ramfs=set bootargs console=ttyS0,115200n8 root=/dev/ram rw init=/linuxrc
+serverip=192.168.2.101
+squashfs=set bootargs console=ttyS0,115200n8 root=/dev/mtdblock4 rootfs=squashfs init=/linuxrc
+
+tftp 80000000 uImage; tftp 81000000 uInitrd16m; tftp 82000000 ast2500_evb.dtb;
+bootm 80000000  81000000  82000000
+
 
 
 

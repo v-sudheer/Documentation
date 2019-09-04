@@ -55,6 +55,13 @@ building Apps:
 --------------
 SYSROOT_PATH=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/arm-aspeed-linux-gnueabi/sysroot/
 CC=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/bin/arm-aspeed-linux-gnueabi-gcc
+Building module:
+---------------
+KERNELDIR = /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/kernel/linux
+CROSS=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/bin/arm-aspeed-linux-gnueabi-gcc
+transfer App:
+-------------
+tftp -g 192.168.30.97 -r dev2bapp
 
 
 
@@ -116,5 +123,15 @@ debug-commands:
   ast# imi 85080000 --->  ## Checking Image at 85080000 ... Unknown image format!
 
 tmp/deploy/images/evb-ast2600/fitImage--4.9.0+git0+d8a3162222-r0-evb-ast2600-20190903090113.bin
+
+Build App:
+-----------
+CC=/home/vsudheer/openbmc_ast2500_SDK_deploy/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-gcc
+SYSROOT_PATH=/home/vsudheer/openbmc_ast2500_SDK_deploy/sysroots/armv6-openbmc-linux-gnueabi/
+
+Build Module:
+--------------
+KERNELDIR= /home/vsudheer/uart_sdma_merge/Linux_community_push_dir/linux
+CROSS = /home/vsudheer/openbmc_ast2500_SDK_deploy/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-
 
 

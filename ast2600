@@ -27,6 +27,17 @@ setenv serverip 192.168.30.97
 tftp 85000000 ast2600_all.bin
 bootm 85080000 85600000 85072000
 
+making changes in Linux config
+------------------------------
+cd kernel/linux
+cp arch/arm/configs/aspeed_g6_defconfig  .config
+make ARCH=arm menuconfig
+do config change
+make ARCH=arm savedefconfig
+cp defconfig arch/arm/configs/aspeed_g6_defconfig
+make uImage LOADADDR=0x80008000 ARCH=arm
+cd ../../
+make images
 
 
 

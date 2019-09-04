@@ -51,6 +51,11 @@ squashfs=set bootargs console=ttyS0,115200n8 root=/dev/mtdblock4 rootfs=squashfs
 tftp 80000000 uImage; tftp 81000000 uInitrd16m; tftp 82000000 ast2500_evb.dtb;
 bootm 80000000  81000000  82000000
 
+building Apps:
+--------------
+SYSROOT_PATH=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/arm-aspeed-linux-gnueabi/sysroot/
+CC=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/bin/arm-aspeed-linux-gnueabi-gcc
+
 
 
 

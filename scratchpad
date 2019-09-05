@@ -31,3 +31,22 @@ export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/
 . oe-init-build-env
 touch conf/sanity.conf
 bitbake obmc-phosphor-image
+
+
+
+
+mw 1e6e2500 2020;mw  1e6e2c20 0xc837B;
+setenv serverip 192.168.30.68
+
+mw 1e6e2500 2020   ----> Enable VGA controller	
+mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
+mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
+setenv serverip 192.168.30.68
+dhcp
+tftp 85000000 ast2600_all.bin
+bootm 85080000 85600000 85072000
+ifconfig eth1  192.168.30.98 up
+tftp -g 192.168.30.68 -r dev2bapp
+tftp -g 192.168.30.68 -r dev2bmod.ko
+insmod dev2bmod.ko
+

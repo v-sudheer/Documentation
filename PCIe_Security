@@ -255,6 +255,9 @@ switch ON BMC:
 	mw 0x1E7E0F04  0x03
 
 
+Host2BMC Address mapping : 0x1e7e 0000 to 0x1e7e ffff
+host2bmc interrupt number 99
+
 
 
 

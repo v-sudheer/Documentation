@@ -237,10 +237,14 @@ http://192.168.10.30:7990/projects/BMC/repos/ast_modules/browse -- Location to a
 
 switch ON BMC:
 @BMC-console:
+	mw 1e6e2000 0x1688a8a8 -> Unlock SCU registers
 	mw 1e6e2500 2020   ----> Enable VGA controller	
 	md  1e6e2c20 --->   000c007b
+	mw  1e6e2c20 0xc807B   --- Enable E2L
 	mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
 	mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
+	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device.
+	
 @HOST: 
 	echo "1" > /sys/bus/pci/rescan
 	lspci -vvv | grep ASPEED

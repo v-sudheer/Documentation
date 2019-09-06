@@ -50,9 +50,13 @@ bootm 85080000 85600000 85072000
 ifconfig eth1  192.168.30.98 up
 tftp -g 192.168.30.68 -r dev2bapp
 tftp -g 192.168.30.68 -r dev2bmod.ko
+tftp -g 192.168.30.68 -r function1
 insmod dev2bmod.ko
 
+cat /proc/devices | grep host2bmc
+mknod /dev/pilot_f1 c 246 0
 
+mknod /dev/pilot_f1 c 250 0
 
 root@floydian:/home/pilot/PCIE_host2bmc_App/pcie_device2/host/module# lspci -s 03:01.0 -xxxx
 03:01.0 Non-VGA unclassified device: ASPEED Technology, Inc. Device 2402

@@ -36,6 +36,12 @@ bitbake obmc-phosphor-image
 
  HOST2BMC/(PCIe BMC Device)
  ------------------
+scp root@192.168.10.130:/tftpboot/ast2600_all.bin /tftpboot/
+scp root@192.168.10.130:/tftpboot/dev2bmod.ko /tftpboot/
+scp root@192.168.10.130:/tftpboot/dev2bapp /tftpboot/
+scp root@192.168.10.130:/tftpboot/function1 /tftpboot/
+
+ 
 mw 1e6e2000 0x1688a8a8;mw 1e6e2500 2020; mw 1e6e2c20 0xcA37B;
 {
 mw 1e6e2500 2020   ----> Enable VGA controller	

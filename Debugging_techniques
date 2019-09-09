@@ -276,10 +276,15 @@ root@evb-ast2500:~#
 
 using pr_debug:
 ----------------
+CONFIG_DYNAMIC_DEBUG=y
+
 echo 8 > /proc/sys/kernel/printk
+echo 'file kernel/module.c +p' > /sys/kernel/debug/dynamic_debug/control
 
-
-
+for modules:
+echo 8 > /proc/sys/kernel/printk
+echo 'module myprintk +p' > /sys/kernel/debug/dynamic_debug/control
+insmod /myprintk.ko
 
 
 using FTRACE :

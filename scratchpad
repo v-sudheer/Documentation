@@ -63,11 +63,24 @@ chmod 0777 dev2bapp function1 dev2bmod.ko
 cat /proc/devices | grep host2bmc
 mknod /dev/pilot_f1 c 246 0
 
+
+
+
+
 hostside:
 -------------
 lspci -s 03:01.0 -xxxx
 
 mknod /dev/pilot_f1 c 250 0
+
+
+
+Test App:
+--------
+
+./pilot_host_app -t "hello"
+
+
 
 
 root@floydian:/home/pilot/PCIE_host2bmc_App/pcie_device2/host/module# lspci -s 03:01.0 -xxxx

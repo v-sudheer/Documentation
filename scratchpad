@@ -77,8 +77,40 @@ mknod /dev/pilot_f1 c 250 0
 
 Test App:
 --------
+./pilot_host_app 
+// Command definitions
+# define    F1_RUN_COMMAND      1
+# define    F1_ECHO_TEST        2
+# define    F1_FILE_TRANSFER    3
+# define    F1_EXIT_F1          255
 
-./pilot_host_app -t "hello"
+f1_option g_opts[] = {
+    { "-r", execute_on_bmc },
+    { "-t", f1_echo_test },
+    { "-e", exit_f1 },
+//  { "-s", send_file_bmc }
+};
+
+
+Usage: pilotapp [-r|-t|-e] [args]
+./pilot_host_app -t "hello"  -- f1_echo_test
+./pilot_host_app -r 
+
+
+Host2BMC understanding:
+-------------------------
+HOST2BMC_device_enable_routine
+{
+   Initialise PCI configuration header register 
+   Initialise status/control registers 
+   initialise membar(BAR0): 
+             MEM_BAR register with DDR-sharedmem-size that BMC  exposes to host.
+             remap register with DDR-sharedmem-base 
+   Initialize msgbar(BAR1):
+             program MSG_BAR to request 256 KB of memory resources 
+   
+   
+
 
 
 

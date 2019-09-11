@@ -41,14 +41,21 @@ scp root@192.168.10.130:/tftpboot/dev2bmod.ko /tftpboot/
 scp root@192.168.10.130:/tftpboot/dev2bapp /tftpboot/
 scp root@192.168.10.130:/tftpboot/function1 /tftpboot/
 
- 
+Sequnce of power ON events:
+--------------------------
+First switch ON PCI-anlyzer device 
+switch ON BMC device  
 mw 1e6e2000 0x1688a8a8;mw 1e6e2500 2020; mw 1e6e2c20 0xcA37B;
 {
 mw 1e6e2500 2020   ----> Enable VGA controller	
 mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
 mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
 }
+switch on PCI-analyzer Card on Host Mother board 
+Switch on Host.
 
+on BMC
+-----------
 setenv serverip 192.168.30.68
 dhcp
 tftp 85000000 ast2600_all.bin
@@ -57,6 +64,9 @@ ifconfig eth1  192.168.30.98 up
 tftp -g 192.168.30.68 -r dev2bapp
 tftp -g 192.168.30.68 -r dev2bmod.ko
 tftp -g 192.168.30.68 -r function1
+
+tftp -g 192.168.30.68 -r dev2bapp;tftp -g 192.168.30.68 -r dev2bmod.ko;tftp -g 192.168.30.68 -r function1;tftp -g 192.168.30.68  -r bmc_initialise.ko;
+
 insmod dev2bmod.ko
 chmod 0777 dev2bapp function1 dev2bmod.ko
 

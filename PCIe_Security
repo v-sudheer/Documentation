@@ -245,6 +245,8 @@ switch ON BMC:
 	mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
 	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device.
 	
+	
+	
 @HOST: 
 	echo "1" > /sys/bus/pci/rescan
 	lspci -vvv | grep ASPEED

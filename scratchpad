@@ -107,7 +107,8 @@ HOST2BMC_device_enable_routine
              MEM_BAR register with DDR-sharedmem-size that BMC  exposes to host.
              remap register with DDR-sharedmem-base 
    Initialize msgbar(BAR1):
-             program MSG_BAR to request 256 KB of memory resources 
+             program MSG_BAR to request 64KB(0x10000) of memory resources of HOST2BMC(1e7e0000 to 1e7effff)
+             
    
    
 

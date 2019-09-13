@@ -1,3 +1,32 @@
+Memory map:
+-----------
+
+85080000 ---->  kernel
+80008000 ---> load addresss and entry point
+85600000 ----->  Ramdisk
+
+
+ast# bootm 85080000 85600000 8507200
+## Booting kernel from Legacy Image at 85080000 ...
+   Image Name:   Linux-5.1.3-00047-g57fa428-dirty
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    4835088 Bytes = 4.6 MiB
+   Load Address: 80008000
+   Entry Point:  80008000
+   Verifying Checksum ... OK
+## Loading init Ramdisk from Legacy Image at 85600000 ...
+   Image Name:
+   Image Type:   ARM Linux RAMDisk Image (gzip compressed)
+   Data Size:    3514714 Bytes = 3.4 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+ERROR: Did not find a cmdline Flattened Device Tree
+Could not find a valid device tree
+
+
+
+
 SDK :  http://192.168.10.30:7990/projects/BMC/repos/sdk/browse
 --------------------------------------------------------------------
 ssh pilotadmin@192.168.10.130

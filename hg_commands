@@ -1,0 +1,7 @@
+
+
+hg log 
+hg log -c <chnagesetID>
+hg diff -c <chnagesetID>
+
+

@@ -182,6 +182,7 @@ md 1e7f20d8   ---------> debug resiter - Last value written to SRAM0
 md 1e7f20dc   ---------> debug resiter - Number of bytes written to SRAM0
 
 
+
 test procedure:
 
 from device : 
@@ -237,6 +238,12 @@ http://192.168.10.30:7990/projects/BMC/repos/ast_modules/browse -- Location to a
 
 switch ON BMC:
 @BMC-console:
+
+	md 1e6e0004   1e6e0004[3:2] is VGA STRAP- for VGA memory selection
+		      1e6e0004[2:1] is Total DDR size
+		      
+	
+
 	mw 1e6e2000 0x1688a8a8 -> Unlock SCU registers
 	mw 1e6e2500 2020   ----> Enable VGA controller	
 	md  1e6e2c20 --->   000c007b

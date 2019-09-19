@@ -127,6 +127,41 @@ HOST2BMC_device_enable_routine
 
 
 
+BMC side script to initialise host2bmc device:
+ast# mw 1E6E2000  1688a8a8
+ast# mw 1e6e2500  2020
+ast# mw 1E7E0F10  FFF00003
+ast# mw 1E7E0F04  00000002
+ast# mw 1E7E0F18  0xB9000000
+ast# mw 1E6E2C20  CA37B
+
+
+sendln 'mw 1E6E0000   fc600309
+pause 1
+sendln 'mw 1E6E0008  0x00440003
+pause 1
+sendln 'mw 1E6E2000   1688a8a8 
+pause 1   
+sendln 'mw 1e6e2500 2020     
+pause 1     
+  ; As part of the enabling sequence the BMC has to initialize the configuration header 
+  ; Expose 1MB , Enable Memory BAR on Host2BMC Device, Enable Memory BAR on PCIe2PCI Bridge.
+  sendln 'mw 1E7E0F10    FFF00003 
+pause 1
+  ;programming for the MEMBAR to be accessible 
+  sendln 'mw 1E7E0F04  00000002 
+pause 1
+  sendln 'mw 1E7E0F18  0xB9000000
+pause 1
+  ; BAR REMAP: program the remap register for the memory bars. 
+  ; BAR REMAP: program the remap register for the memory bars.
+  ; Program SYSCTRL REGISTER  
+   sendln 'mw 1E6E2C20  CA37B 
+pause 1
+
+
+ 
+
 
 root@floydian:/home/pilot/PCIE_host2bmc_App/pcie_device2/host/module# lspci -s 03:01.0 -xxxx
 03:01.0 Non-VGA unclassified device: ASPEED Technology, Inc. Device 2402

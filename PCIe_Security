@@ -250,9 +250,10 @@ switch ON BMC:
 	mw  1e6e2c20 0xc807B   --- Enable E2L
 	mw  1e6e2c20 0xc817B   --- Enable HOST2BMC
 	mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
-	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device.
+	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device. --- This would enable INTA
+	if you need INTB,
 	mw  1e6e2c24  (md 1e6e2c24 | 1<<18); --- selct INTB 
-	
+	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device. ---> this would Enable INTB
 	
 	
 @HOST: 

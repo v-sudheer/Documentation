@@ -56,6 +56,7 @@ mw 1e6e2c24 (md 1e6e2c24 | 40000 )  --> select INTB
 switch on PCI-analyzer Card on Host Mother board 
 Switch on Host.
 
+picocom -b 115200 -r -l /dev/ttyUSB0
 on BMC
 -----------
 setenv serverip 192.168.30.68

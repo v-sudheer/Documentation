@@ -252,9 +252,12 @@ switch ON BMC:
 	mw  1e6e2c20 0xc837B   --- Enable BMC MMIO on BMC device.
 	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device. --- This would enable INTA
 	if you need INTB,
-	mw  1e6e2c24  (md 1e6e2c24 | 1<<18); --- selct INTB 
+	mw  1e6e2c24  (md 1e6e2c24 | 1<<18); --- selct INTB : md 1e6e2c24; mw 1e6e2c24 40000
 	mw  1e6e2c20 0xcA37B   --- Enable INTR on BMC device. ---> this would Enable INTB
 	
+	md 1e7ea040
+	mw 1e7ea040  0x45000000 -- Enable INTerrupt
+	mw 1e7ea040  0xc5000000  --- Generate Interr
 	
 @HOST: 
 	echo "1" > /sys/bus/pci/rescan

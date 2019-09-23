@@ -228,3 +228,37 @@ f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
 
 
+host2bmc-q1 --  md 0x1E7EA000
+host2bmc-q2 --  md 0x1E7EA010
+host2bmc-q-status : md 0x1E7EA044
+
+bmc2host-q1 --  md 0x1E7EA020
+bmc2host-q2 --  md 0x1E7EA030
+bmc2host-q-status : md 0x1E7EA040
+
+bmc2host-q1-test:
+-----------------------
+md 0x1E7EA020 - till queue is cleared 
+md 0x1E7EA040 
+set bit23 - Q1 FULL MASK
+set bit30 - ENABLE b2h INTB
+set bit31 - Door bell
+door bell test:
+mw 0x1e7e40  0x4#8# #### (0x40800000)
+mw 0x1e7e40  0x8#8# #### (0xc0800000)
+check for ISR triggered on host
+Queue fill test
+mw 0x1e7e40  0x40800000 (0x4#8# ####)
+mw 0x1E7EA020 0xFFFFAAA1
+mw 0x1E7EA020 0xFFFFAAA2
+mw 0x1E7EA020 0xFFFFAAA3
+mw 0x1E7EA020 0xFFFFAAA4
+mw 0x1E7EA020 0xFFFFAAA5
+check for ISR triggered on host
+
+
+
+
+
+
+

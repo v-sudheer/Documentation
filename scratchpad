@@ -17,20 +17,48 @@ echo "hello" > /dev/ttyDMA2
 
 PCIe HOST2BMC porting:
 -----------------------------
+
+
+code changes related:
+----------------------
 cd /home/vsudheer/PCIE_host2bmc_App/pcie_device2/bmc/module
 source ~/openbmc_ast2500_SDK_deploy/environment-setup-armv6-openbmc-linux-gnueabi
 make
-
-
 meta-aspeed/recipes-kernel/linux/linux-aspeed_git.bb
 meta-aspeed/recipes-kernel/linux/linux-aspeed.inc
 meta-aspeed/recipes-kernel/linux/ast2500/defconfig
-
 git clone -b ast2600_thud --single-branch    https://github.com/AspeedTech-BMC/openbmc.git
 export  TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2600/conf/
 . oe-init-build-env
 touch conf/sanity.conf
 bitbake obmc-phosphor-image
+
+
+Image building
+-------------------
+SDK image:
+/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00
+
+cat README
+make ast2600_config
+source setenv.sh
+make
+
+building only kernel and integrating it to all.bin
+---------------------------------------------------
+cd kernel/linux
+make uImage LOADADDR=0x80008000
+make dtbs
+cp arch/arm/boot/uImage ../../images/ast2600-default/
+cp arch/arm/boot/dts/aspeed-ast2600-evb.dtb ../../images/ast2600-default
+cd ../../
+make image
+
+
+VGA Memory Space map to ARM Memory Space (AST2600_v02.pdf: 6.2 ):
+bf000 0000 -- bfff ffff : VGA space
+select be00 0000 - be10 0000 : host2bmc-1MB (in DT<0xbe000000  0x100000>;)
+
 
 
 
@@ -63,6 +91,10 @@ setenv serverip 192.168.30.68
 dhcp
 tftp 85000000 ast2600_all.bin
 bootm 85080000 85600000 85072000
+
+for flashed image 
+bootm 20080000 20600000 20072000
+
 ifconfig eth1  192.168.30.98 up
 tftp -g 192.168.30.68 -r dev2bapp
 tftp -g 192.168.30.68 -r dev2bmod.ko
@@ -129,39 +161,50 @@ HOST2BMC_device_enable_routine
 
 
 BMC side script to initialise host2bmc device:
-ast# mw 1E6E2000  1688a8a8
-ast# mw 1e6e2500  2020
-ast# mw 1E7E0F10  FFF00003
-ast# mw 1E7E0F04  00000002
+ast#
+ast# mw 1E6E2000  0x1688a8a8
+ast# mw 1E6E2C20  0xCA37B
+ast# mw 1e6e2500  0x2020
+ast# mw 1E6E0000  0xfc600309
+ast# mw 1E6E0008  0x00440003
+ast# mw 1E7E0F10  0xFFF00003
+ast# mw 1E7E0F04  0x00000002
 ast# mw 1E7E0F18  0xB9000000
-ast# mw 1E6E2C20  CA37B
+ast# mw 1e6e2c20  0xcA37B
+ast#
 
+; unlock SCU
+sendln 'mw 1E6E2000  0x1688a8a8 
+pause 1   
 
-sendln 'mw 1E6E0000   fc600309
+; Program SYSCTRL REGISTER -enable e2l,host2bmc,mmio on host2bmc 
+sendln 'mw 1E6E2C20  0xCA37B
 pause 1
+; Enable VGA
+sendln 'mw 1e6e2500  0x2020    
+pause 1
+
+; sendln 'md 1E6E0008 04
+; unlocking MCR regs
+sendln 'mw 1E6E0000  0xfc600309
+pause 1
+; REQ3=0
 sendln 'mw 1E6E0008  0x00440003
 pause 1
-sendln 'mw 1E6E2000   1688a8a8 
-pause 1   
-sendln 'mw 1e6e2500 2020     
-pause 1     
-  ; As part of the enabling sequence the BMC has to initialize the configuration header 
-  ; Expose 1MB , Enable Memory BAR on Host2BMC Device, Enable Memory BAR on PCIe2PCI Bridge.
-  sendln 'mw 1E7E0F10    FFF00003 
-pause 1
-  ;programming for the MEMBAR to be accessible 
-  sendln 'mw 1E7E0F04  00000002 
-pause 1
-  sendln 'mw 1E7E0F18  0xB9000000
-pause 1
-  ; BAR REMAP: program the remap register for the memory bars. 
-  ; BAR REMAP: program the remap register for the memory bars.
-  ; Program SYSCTRL REGISTER  
-   sendln 'mw 1E6E2C20  CA37B 
-pause 1
 
+; Expose 1MB , Enable Memory BAR on Host2BMC Device, Enable Memory BAR on PCIe2PCI Bridge.
+sendln 'mw 1E7E0F10  0xFFF00003 
+pause 1
+;programming for the MEMBAR to be accessible 
+sendln 'mw 1E7E0F04  0x00000002 
+pause 1
+; BAR REMAP: program the remap register for the memory bars. 
+sendln 'mw 1E7E0F18  0xB9000000
+pause 1
+; Enabling INTA(default)
+; sendln 'md 1e6e2c24 04
+sendln 'mw 1e6e2c20  0xcA37B
 
- 
 
 
 root@floydian:/home/pilot/PCIE_host2bmc_App/pcie_device2/host/module# lspci -s 03:01.0 -xxxx

@@ -89,7 +89,7 @@ on BMC
 -----------
 setenv serverip 192.168.30.68
 dhcp
-tftp 85000000 ast2600_all.bin
+tftp 85000000 ast2600_all.bin_be00
 bootm 85080000 85600000 85072000
 
 for flashed image 
@@ -244,8 +244,8 @@ set bit23 - Q1 FULL MASK
 set bit30 - ENABLE b2h INTB
 set bit31 - Door bell
 door bell test:
-mw 0x1e7e40  0x4#8# #### (0x40800000)
-mw 0x1e7e40  0x8#8# #### (0xc0800000)
+mw 0x1e7e40 0x40800000  (0x4#8# ####)
+mw 0x1e7e40 0xc0800000  (0x8#8# ####)
 check for ISR triggered on host
 Queue fill test
 mw 0x1e7e40  0x40800000 (0x4#8# ####)

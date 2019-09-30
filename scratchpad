@@ -1,6 +1,15 @@
 setup 192.168.30.97 -------  AST2500 
 ssh pilotadmin@192.168.30.97(password)
-route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.30.254
+
+
+1)route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.30.254 : any pkt directed to 10.0 should be forwarded to 30.254 
+or else
+2)
+route add -net 192.168.30.0 netmask 255.255.255.0 dev eth1  : any pkt to 30.0 --> will be routed without gw .. i.e it is LAN pkt
+route add default gw 192.168.30.254 eth1                    : if a pkt don;t have a dest on LAN, then send it to 30.254, which routes pkt
+
+
+
 stty -F /dev/ttyUSB1 -onlcr -echo
 scp  vsudheer@192.168.10.10:/tftpboot/ast2500_uart_sdma_evb.mtd  .
 

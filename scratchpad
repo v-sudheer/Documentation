@@ -271,3 +271,62 @@ check for ISR triggered on host
 
 
 
+
+
+
+
+#######################################################################################################
+
+
+
+
+
+[AST /]$ insmod  dev2bmod_old.ko
+[  122.162558] dev2bmod: loading out-of-tree module taints kernel.
+[  122.169871] Entered pilot_func1_init
+[  122.174000] Initializing pilot4 device 2 module version 0.0.9
+[  122.180505] ------------[ cut here ]------------
+[  122.185710] WARNING: CPU: 1 PID: 782 at arch/arm/mm/ioremap.c:303 __arm_ioremap_pfn_caller+0xe8/0x1c4
+[  122.196096] Modules linked in: dev2bmod(O+)
+[  122.200814] CPU: 1 PID: 782 Comm: insmod Tainted: G           O      5.1.3-00047-g57fa428-dirty #1
+[  122.210882] Hardware name: Generic DT based system
+[  122.216263] Backtrace:
+[  122.219017] [<8010eed8>] (dump_backtrace) from [<8010f15c>] (show_stack+0x20/0x24)
+[  122.227529]  r7:0000012f r6:600b0013 r5:00000000 r4:80b525a4
+[  122.233893] [<8010f13c>] (show_stack) from [<8073ac10>] (dump_stack+0x90/0xa4)
+[  122.242015] [<8073ab80>] (dump_stack) from [<80121964>] (__warn.part.3+0xcc/0xe8)
+[  122.250425]  r7:0000012f r6:00000009 r5:00000000 r4:00000000
+[  122.256788] [<80121898>] (__warn.part.3) from [<80121b00>] (warn_slowpath_null+0x54/0x5c)
+[  122.265981]  r7:000bf000 r6:80118e94 r5:0000012f r4:808d2780
+[  122.272344] [<80121aac>] (warn_slowpath_null) from [<80118e94>] (__arm_ioremap_pfn_caller+0xe8/0x1c4)
+[  122.282708]  r6:bf000000 r5:00000000 r4:01000000
+[  122.287899] [<80118dac>] (__arm_ioremap_pfn_caller) from [<80118fc4>] (__arm_ioremap_caller+0x54/0x5c)
+[  122.298364]  r10:bf367f28 r9:80b09c48 r8:7f0022c0 r7:00000000 r6:7f002000 r5:7f0007d4
+[  122.307162]  r4:80118f70 r3:00000000
+[  122.311179] [<80118f70>] (__arm_ioremap_caller) from [<80119020>] (ioremap+0x2c/0x30)
+[  122.319994] [<80118ff4>] (ioremap) from [<7f000884>] (pilot_func1_init+0xb0/0x318 [dev2bmod])
+[  122.329566]  r5:7f0007d4 r4:bf000000
+[  122.333589] [<7f0007d4>] (pilot_func1_init [dev2bmod]) from [<8010301c>] (do_one_initcall+0x50/0x21c)
+[  122.343956]  r10:bf367f28 r9:80b09c48 r8:7f0020c0 r7:00000000 r6:80b09c48 r5:7f0007d4
+[  122.352754]  r4:7f0020c0
+[  122.355603] [<80102fcc>] (do_one_initcall) from [<801b0c28>] (do_init_module+0x70/0x240)
+[  122.364698]  r8:7f0020c0 r7:b68d3ac0 r6:b68d3580 r5:00000002 r4:7f0020c0
+[  122.372234] [<801b0bb8>] (do_init_module) from [<801b2f80>] (load_module+0x20bc/0x274c)
+[  122.381231]  r7:b68d3ac0 r6:b68d3a80 r5:00000002 r4:00000002
+[  122.387594] [<801b0ec4>] (load_module) from [<801b37b4>] (sys_init_module+0x1a4/0x1dc)
+[  122.396497]  r10:01b2e150 r9:ffffe000 r8:80b09c48 r7:01b3df64 r6:00000000 r5:c41aae04
+[  122.405295]  r4:0000fe04
+[  122.408133] [<801b3610>] (sys_init_module) from [<80101000>] (ret_fast_syscall+0x0/0x54)
+[  122.417225] Exception stack(0xbf367fa8 to 0xbf367ff0)
+[  122.422904] 7fa0:                   0000fe04 7e89ff13 01b2e160 0000fe04 01b2e150 7e89ff13
+[  122.432098] 7fc0: 0000fe04 7e89ff13 00000002 00000080 7e89fe24 0000007c 76f7b000 00000000
+[  122.441290] 7fe0: 7e89fc60 7e89fc50 0002e754 76e6a7c0
+[  122.446967]  r10:00000080 r9:bf366000 r8:80101204 r7:00000080 r6:00000002 r5:7e89ff13
+[  122.455766]  r4:0000fe04
+[  122.458705] ---[ end trace d2b9d09104dacfc1 ]---
+[  122.463900] ioremap_nocache failed.
+insmod: can't insert 'dev2bmod_old.ko': Operation not permitted
+[AST /]$ [  288.755424] random: crng init done
+
+
+

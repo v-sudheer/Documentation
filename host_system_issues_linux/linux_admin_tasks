@@ -1,0 +1,12 @@
+detecting , formatting ,mounting , using , unmounting  usb drive:
+------------------------------------------------------------------
+insert usb drive
+ls -ltr /dev | tail
+fdisk -l
+
+formatting drive:
+mkfs.ext2  /dev/sda1 ; (or) mkfs.vfat  /dev/sda1 (or) mkfs.ntfs  /dev/sda1
+
+mount /dev/sda1 /mnt/
+umount /dev/sda1 
+

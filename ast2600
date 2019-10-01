@@ -65,6 +65,9 @@ do config change
 make ARCH=arm savedefconfig
 cp defconfig arch/arm/configs/aspeed_g6_defconfig
 make uImage LOADADDR=0x80008000 ARCH=arm
+cp  arch/arm/boot/uImage ../../images/ast2600-default/uImage
+make  aspeed-ast2600-evb.dtb / or make dtbs
+cp  arch/arm/boot/dts/aspeed-ast2600-evb.dtb    ../../images/ast2600-default/uImage
 cd ../../
 make image
 

@@ -89,7 +89,8 @@ SYSROOT_PATH=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.
 CC=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/bin/arm-aspeed-linux-gnueabi-gcc
 Building module:
 ---------------
-KERNELDIR = /elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/kernel/linux
+KERNELDIR = ~/ast2600_SDK/ast_sdk.v00.05.00/kernel/linux will not work .
+KERNELDIR = ~/ast2600_sdk/ast_sdk.v00.05.03/outputs/ast2600-default/kernel/ will work
 CROSS=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/ast2600_SDK/ast_sdk.v00.05.00/toolchains/ast2600-linux-5.1-gnueabihf/bin/arm-aspeed-linux-gnueabi-gcc
 transfer App:
 -------------

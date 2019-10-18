@@ -4,17 +4,39 @@ SDK:
 hg clone http://192.168.10.11/hg/main/p4_linux/cockpit/launchpad/
 checkout.sh
 
-Building module against kernel:
 
- 
+
+compiling linux kerenel:
+export CROSSTOOL_GCC_DIR=/elx/sandbox/pilot_fw/pilot/sveliseti/314toolchain/x-tool-3.14.35/bin
+export CROSS_COMPILE=arm-emulex-linux-gnueabi-
+(or)
+export CROSS_COMPILE=/elx/sandbox/pilot_fw/pilot/sveliseti/314toolchain/x-tool-3.14.35/bin/arm-emulex-linux-gnueabi-
+make linux ver=314
+
+
 export CROSSTOOL_GCC_DIR=/elx/sandbox/pilot_fw/pilot/sveliseti/whitely/x-tool-4-4-128-armv7-472/bin/arm-aspeed-linux-gnueabi-
 export CROSS_COMPILE=arm-aspeed-linux-gnueabi-
 or
 export CROSS_COMPILE=/elx/sandbox/pilot_fw/pilot/sveliseti/whitely/x-tool-4-4-128-armv7-472/bin/arm-aspeed-linux-gnueabi-
 make linux ver=44
 
+
+
+Building module against kernel:
+
+export CROSSTOOL_GCC_DIR=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/pilot4/launchpad/linux_314
+CROSS=/elx/sandbox/pilot_fw/pilot/sveliseti/314toolchain/x-tool-3.14.35/bin/arm-emulex-linux-gnueabi-
+make ARCH=arm CROSS_COMPILE=$(CROSS) -C $(KERNELDIR) M=$(PWD) modules
+
+(or)
+
 KERNELDIR=/elx/sandbox/pilot_fw/pilot/sveliseti/code_dir/pilot4/launchpad/linux_4_4
 CROSS=/elx/sandbox/pilot_fw/pilot/sveliseti/whitely/x-tool-4-4-128-armv7-472/bin/arm-aspeed-linux-gnueabi-
 make ARCH=arm CROSS_COMPILE=$(CROSS) -C $(KERNELDIR) M=$(PWD) modules
 
+Bilding Application:
+-------------------
+CC=/elx/sandbox/pilot_fw/pilot/sveliseti/314toolchain/x-tool-3.14.35/bin/arm-emulex-linux-gnueabi-gcc
+(or)
+CC=/elx/sandbox/pilot_fw/pilot/sveliseti/whitely/x-tool-4-4-128-armv7-472/bin/arm-aspeed-linux-gnueabi-gcc
 

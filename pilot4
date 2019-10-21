@@ -40,3 +40,11 @@ CC=/elx/sandbox/pilot_fw/pilot/sveliseti/314toolchain/x-tool-3.14.35/bin/arm-emu
 (or)
 CC=/elx/sandbox/pilot_fw/pilot/sveliseti/whitely/x-tool-4-4-128-armv7-472/bin/arm-aspeed-linux-gnueabi-gcc
 
+
+
+setenv serverip 192.168.30.97
+tftp 85000000 pilotimage44.bin
+bootm 100000 500000 004fc000
+
+
+

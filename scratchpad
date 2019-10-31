@@ -330,3 +330,31 @@ insmod: can't insert 'dev2bmod_old.ko': Operation not permitted
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+host2bmc Stress testing:
+-------------------------
+
+git clone http://192.168.10.30:7990/scm/bmckvms/ast2600_pcie_interface_tests
+
+outputs/ast2600-default/kernel/include/generated/utsrelease.h ---> 
+#define UTS_RELEASE "5.1.3" ----------> #define UTS_RELEASE "5.1.3.sdk"
+
+
+
+
+

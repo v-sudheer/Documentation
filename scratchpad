@@ -381,6 +381,27 @@ outputs/ast2600-default/kernel/include/generated/utsrelease.h --->
 
 
 
+cd /home/vsudheer/host2bmc_fresh/ast2600_pcie_interface_tests/host2bmc/pcie_device2/bmc/module
+bmc side host2bmc driver ---> dev2bmod.ko
+
+/home/vsudheer/host2bmc_fresh/ast2600_pcie_interface_tests/host2bmc/pcie_device2/bmc/app
+dev2bapp -- for echo test
+function1 --- for run commad test
+
+
+/home/vsudheer/host2bmc_fresh/ast2600_pcie_interface_tests/host2bmc/pcie_device2/host/module
+ host side pcie driver for host2bmc device ---  dev2hmod.ko
+ 
+ /home/vsudheer/host2bmc_fresh/ast2600_pcie_interface_tests/host2bmc/pcie_device2/host/app
+ dev2happ -- host side app
+ 
+ 
+ 
+ 
+ 
+
+
+
 
 
 

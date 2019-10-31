@@ -351,8 +351,34 @@ host2bmc Stress testing:
 
 git clone http://192.168.10.30:7990/scm/bmckvms/ast2600_pcie_interface_tests
 
+
+cd ~/host2bmc_fresh/ast_sdk.v00.05.03
+vim ast2600_pcie_interface_tests/host2bmc/pcie_device2/aspeed-g6.dtsi
+/home/vsudheer/host2bmc_fresh/ast_sdk.v00.05.03/kernel/linux/arch/arm/boot/dts/aspeed-g6.dtsi
+host2bmc: host2bmc@1e7e0000 {
+                                compatible = "aspeed,ast2600-host2bmc";
+                                reg = <0x1e7e0000 0xffff>,<0xb9000000 0x100000>;
+                                interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>;
+                                status = "disabled";
+                        };
+
+vim  ast2600_pcie_interface_tests/host2bmc/pcie_device2/aspeed-ast2600-evb.dts
+/home/vsudheer/host2bmc_fresh/ast_sdk.v00.05.03/kernel/linux/arch/arm/boot/dts/aspeed-ast2600-evb.dts
+&host2bmc {
+        status = "okay";
+};
+
+
+
+
+Step 1: make ast2600_config
+Step 2: source setenv.sh
+Step 3: make
+
+cd /home/vsudheer/host2bmc_fresh/ast_sdk.v00.05.03
 outputs/ast2600-default/kernel/include/generated/utsrelease.h ---> 
-#define UTS_RELEASE "5.1.3" ----------> #define UTS_RELEASE "5.1.3.sdk"
+#define UTS_RELEASE "5.1.3" ----------> #define UTS_RELEASE "5.1.3.sdk-v00.05.03"
+
 
 
 

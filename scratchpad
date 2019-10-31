@@ -395,9 +395,30 @@ function1 --- for run commad test
  /home/vsudheer/host2bmc_fresh/ast2600_pcie_interface_tests/host2bmc/pcie_device2/host/app
  dev2happ -- host side app
  
+ on BMC side :
  
- 
- 
+run host2bmc.ttl script to program System control registers
+insmod dev2bmod.ko
+cat /proc/devices | grep host2bmc ---> major num
+mknod /dev/pilot_f1 c <major> 0
+./function1 &
+
+
+on Host side.
+insmod dev2hmod.ko
+cat /proc/devices | grep host2bmc ---> major num
+mknod /dev/pilot_f1 c <major> 0
+dev2happ -r "ls -ltr" "/home/pilot/recv_file.txt"
+
+
+
+
+
+
+
+
+
+
  
 
 

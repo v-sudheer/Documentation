@@ -410,7 +410,7 @@ cat /proc/devices | grep host2bmc ---> major num
 mknod /dev/pilot_f1 c <major> 0
 dev2happ -r "ls -ltr" "/home/pilot/recv_file.txt"
 
-
+./hs100.py on  --ip=192.168.30.53
 
 
 
